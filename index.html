@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MeetUp – Community Events</title>
+  <meta name="description" content="Kostenfreie Events in deiner Stadt. Melde dich in 30 Sekunden an." />
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header>
+    <div class="brand">MEETUP · COMMUNITY</div>
+    <div class="hero">
+      <h1>Attraktive Events 💬🍸 – gratis anmelden</h1>
+      <p>Wähle ein Event aus und sichere dir kostenlos deinen Platz. Wir fragen nur <strong>Name</strong>, <strong>Alter</strong> und <strong>Beschäftigungsstatus</strong>.</p>
+      <div class="controls">
+        <input id="q" class="search" placeholder="Suchen: Cocktail, Networking, Running…" />
+        <button class="btn" id="reset">Zurücksetzen</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="grid" id="grid"></main>
+
+  <dialog id="signup">
+    <div class="modal-head">
+      <strong>Anmeldung</strong>
+      <button class="x" aria-label="Schließen" onclick="closeModal()">×</button>
+    </div>
+    <form id="form" name="event-signup" class="modal-body" method="POST" data-netlify="true" netlify-honeypot="company" action="/">
+      <!-- Netlify Forms: \"event-signup\" wird automatisch erfasst. -->
+      <input type="hidden" name="event_title" id="event_title" />
+      <div class="row">
+        <div class="field">
+          <label for="name">Name *</label>
+          <input required id="name" name="name" type="text" placeholder="Vor- & Nachname" />
+        </div>
+        <div class="field">
+          <label for="age">Alter *</label>
+          <input required id="age" name="age" type="number" inputmode="numeric" min="16" max="100" placeholder="z. B. 27" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label for="status">Beschäftigungsstatus *</label>
+          <select required id="status" name="employment_status">
+            <option value="">Bitte wählen…</option>
+            <option>Student:in</option>
+            <option>Angestellt</option>
+            <option>Selbstständig</option>
+            <option>Arbeitssuchend</option>
+            <option>Sonstiges</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="email">E-Mail (Bestätigung)</label>
+          <input id="email" name="email" type="email" placeholder="optional, für Updates" />
+        </div>
+      </div>
+      <!-- Spam-Honeypot (Netlify) -->
+      <input type="hidden" name="form-name" value="event-signup" />
+      <input type="text" name="company" style="display:none" tabindex="-1" autocomplete="off" />
+      <p class="help">Mit dem Absenden stimmst du der Verarbeitung deiner Daten zum Zweck der Event-Anmeldung zu. Es fallen keine Kosten an.</p>
+      <div class="msg" id="msg"></div>
+      <div class="modal-foot">
+        <button type="button" class="btn" onclick="closeModal()">Abbrechen</button>
+        <button type="submit" class="btn primary">Kostenfrei anmelden</button>
+      </div>
+    </form>
+  </dialog>
+
+  <footer>
+    © <span id="year"></span> MeetUp · <a href="#" id="impressum">Impressum</a> · <a href="#" id="privacy">Datenschutz</a>
+  </footer>
+
+  <script>
+    // ---- Demo-Eventdaten (bearbeiten/erweitern) ----
+    const EVENTS = [
+      { id: 'mix-101', title: 'Cocktail-Workshop: Skinny Bitch & Friends', date: '2025-11-22', time: '19:00', city: 'Münster', tags: ['Cocktail', 'Social'], spots: 12 },
+      { id: 'net-201', title: 'Afterwork Networking × IT & Creators', date: '2025-11-27', time: '18:30', city: 'Münster', tags: ['Networking'], spots: 25 },
+      { id: 'run-301', title: 'Morning Run & Coffee', date: '2025-11-29', time: '09:00', city: 'Münster', tags: ['Sport', 'Outdoor'], spots: 15 },
+      { id: 'brd-401', title: 'Boardgame Sunday', date: '2025-12-07', time: '15:00', city: 'Münster', tags: ['Spiele', 'Social'], spots: 10 },
+    ];
+
+    const grid = document.getElementById('grid');
+    const q = document.getElementById('q');
+
+    function fmtDate(iso) {
+      const d = new Date(iso + 'T00:00:00');
+      return d.toLocaleDateString('de-DE', { weekday: 'short', day: '2-digit', month: 'short' });
+    }
+
+    function render(list) {
+      grid.innerHTML = list.map(e => `
+        <article class="card" data-id="${e.id}">
+          <div class="meta">
+            <span class="pill">${fmtDate(e.date)} · ${e.time} Uhr</span>
+            <span class="pill">${e.city}</span>
+            <span class="pill">${e.spots} Plätze</span>
+          </div>
+          <h3>${e.title}</h3>
+          <div class="meta">${e.tags.map(t => `<span class="pill">#${t}</span>`).join('')}</div>
+          <div class="cta-row">
+            <button class="btn primary" onclick="openModal('${e.title.replace(/'/g, "&#39;")}')">Kostenfrei anmelden</button>
+            <button class="btn ghost" onclick="share('${e.title.replace(/'/g, "&#39;")}')">Teilen</button>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    function filter() {
+      const term = q.value.trim().toLowerCase();
+      if (!term) return render(EVENTS);
+      const list = EVENTS.filter(e =>
+        e.title.toLowerCase().includes(term) ||
+        e.city.toLowerCase().includes(term) ||
+        e.tags.join(' ').toLowerCase().includes(term)
+      );
+      render(list);
+    }
+
+    document.getElementById('reset').addEventListener('click', () => { q.value = ''; render(EVENTS); });
+    q.addEventListener('input', filter);
+
+    // Modal & Form Handling
+    const dlg = document.getElementById('signup');
+    function openModal(title) {
+      document.getElementById('event_title').value = title;
+      document.getElementById('msg').className = 'msg';
+      document.getElementById('msg').textContent = '';
+      dlg.showModal();
+    }
+    function closeModal() { dlg.close(); }
+    window.closeModal = closeModal; window.openModal = openModal;
+
+    async function handleSubmit(e) {
+      e.preventDefault();
+      const msg = document.getElementById('msg');
+
+      // Simple client validation
+      const age = Number(document.getElementById('age').value);
+      if (Number.isNaN(age) || age < 16 || age > 100) {
+        msg.textContent = 'Bitte gib ein Alter zwischen 16 und 100 an.';
+        msg.className = 'msg err';
+        return;
+      }
+
+      const form = e.target;
+
+      try {
+        const res = await fetch(form.action, { method: 'POST', body: new FormData(form) });
+        if (res.ok) {
+          form.reset();
+          msg.innerHTML = 'Danke! Deine kostenfreie Anmeldung ist eingegangen.';
+          msg.className = 'msg ok';
+        } else {
+          msg.textContent = 'Uups – etwas ist schiefgelaufen. Bitte später erneut versuchen.';
+          msg.className = 'msg err';
+        }
+      } catch (err) {
+        msg.textContent = 'Keine Verbindung. Prüfe deine Internetverbindung.';
+        msg.className = 'msg err';
+      }
+    }
+    document.getElementById('form').addEventListener('submit', handleSubmit);
+
+    // Share API (best effort)
+    function share(title) {
+      const text = `Komm mit zu "${title}" – kostenlose Anmeldung!`;
+      const url = location.href;
+      if (navigator.share) navigator.share({ title: document.title, text, url });
+      else navigator.clipboard.writeText(url).then(() => alert('Link kopiert!'));
+    }
+    window.share = share;
+
+    // Init
+    render(EVENTS);
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

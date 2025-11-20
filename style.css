@@ -1,0 +1,246 @@
+:root {
+    --bg: #0b0d12;
+    --card: #121621;
+    --muted: #9aa4b2;
+    --text: #e7eef7;
+    --accent: #7cc4ff;
+    --accent-2: #9bffb5;
+    --danger: #ff7c7c;
+    --radius: 16px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font: 16px/1.55 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+    color: var(--text);
+    background: radial-gradient(1200px 800px at 80% -20%, rgba(124, 196, 255, .12), transparent 60%),
+        radial-gradient(900px 600px at -10% 10%, rgba(155, 255, 181, .10), transparent 60%),
+        var(--bg);
+}
+
+header {
+    padding: 48px 20px 28px;
+    text-align: center;
+}
+
+.brand {
+    font-weight: 800;
+    letter-spacing: 0.4px;
+}
+
+.hero {
+    max-width: 880px;
+    margin: 0 auto;
+}
+
+.hero h1 {
+    font-size: clamp(28px, 5vw, 44px);
+    margin: 8px 0 10px;
+}
+
+.hero p {
+    color: var(--muted);
+    margin: 0 auto 14px;
+    max-width: 720px;
+}
+
+.controls {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    max-width: 720px;
+    margin: 18px auto 0;
+}
+
+.search {
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: #0e121b;
+    border: 1px solid #1b2230;
+    color: var(--text);
+}
+
+.btn {
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 1px solid #1b2230;
+    background: linear-gradient(135deg, #182133, #121621);
+    color: var(--text);
+    cursor: pointer;
+}
+
+.btn:hover {
+    border-color: #283249;
+}
+
+.grid {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    max-width: 1100px;
+    padding: 26px 20px 80px;
+    margin: 0 auto;
+}
+
+.card {
+    background: linear-gradient(180deg, rgba(124, 196, 255, 0.04), rgba(124, 196, 255, 0.0)), var(--card);
+    border: 1px solid #1b2230;
+    border-radius: var(--radius);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.card h3 {
+    margin: 2px 0 2px;
+    font-size: 18px;
+}
+
+.meta {
+    color: var(--muted);
+    font-size: 14px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.pill {
+    padding: 2px 8px;
+    border-radius: 999px;
+    border: 1px solid #263049;
+}
+
+.cta-row {
+    margin-top: auto;
+    display: flex;
+    gap: 8px;
+}
+
+.primary {
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    color: #00141b;
+    border: none;
+    font-weight: 700;
+}
+
+.primary:hover {
+    filter: brightness(1.05);
+}
+
+.ghost {
+    background: transparent;
+}
+
+/* Modal */
+dialog {
+    width: 100%;
+    max-width: 520px;
+    border: 1px solid #263049;
+    border-radius: 18px;
+    background: #0f1420;
+    color: var(--text);
+    padding: 0;
+}
+
+dialog::backdrop {
+    background: rgba(0, 10, 20, .65);
+    backdrop-filter: blur(4px);
+}
+
+.modal-head {
+    padding: 18px 20px;
+    border-bottom: 1px solid #1d2434;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.modal-body {
+    padding: 18px 20px 6px;
+}
+
+.modal-foot {
+    padding: 16px 20px 20px;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.x {
+    all: unset;
+    cursor: pointer;
+    font-size: 22px;
+    line-height: 1;
+    padding: 4px 8px;
+}
+
+form .row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.field {
+    display: grid;
+    gap: 6px;
+}
+
+label {
+    font-size: 13px;
+    color: var(--muted);
+}
+
+input[type="text"],
+input[type="number"],
+select,
+input[type="email"] {
+    padding: 12px 12px;
+    border-radius: 12px;
+    border: 1px solid #1b2230;
+    background: #0c111a;
+    color: var(--text);
+}
+
+.help {
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.msg {
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: 1px solid #1b2230;
+    margin-top: 8px;
+    display: none;
+}
+
+.msg.ok {
+    display: block;
+    border-color: #224234;
+    background: #0d1b13;
+}
+
+.msg.err {
+    display: block;
+    border-color: #3b2327;
+    background: #1a0f11;
+    color: #ffb7b7;
+}
+
+footer {
+    color: var(--muted);
+    text-align: center;
+    font-size: 13px;
+    padding: 30px 20px;
+    border-top: 1px solid #1b2230;
+}
+
+a {
+    color: var(--accent);
+    text-decoration: none;
+}
