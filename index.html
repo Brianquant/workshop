@@ -146,9 +146,17 @@
       }
 
       const form = e.target;
+      const data = new FormData(form);
+      if (!data.has('form-name') && form.name) data.append('form-name', form.name);
+      const body = new URLSearchParams();
+      data.forEach((value, key) => body.append(key, value));
 
       try {
-        const res = await fetch(form.action, { method: 'POST', body: new FormData(form) });
+        const res = await fetch(form.action, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: body.toString()
+        });
         if (res.ok) {
           form.reset();
           msg.innerHTML = 'Danke! Deine kostenfreie Anmeldung ist eingegangen.';
