@@ -4,83 +4,107 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>MeetUp – Community Events</title>
-  <meta name="description" content="Kostenfreie Events in deiner Stadt. Melde dich in 30 Sekunden an." />
-  <meta name="version" content="0.0.1" style="user-select: text;">
+  <meta name="description" content="Free community events in your city. RSVP in under a minute." />
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
     <div class="brand">MEETUP · COMMUNITY</div>
     <div class="hero">
-      <h1>Attraktive Events 💬🍸 – gratis anmelden</h1>
-      <p>Wähle ein Event aus und sichere dir kostenlos deinen Platz. Wir fragen nur <strong>Name</strong>, <strong>Alter</strong> und <strong>Beschäftigungsstatus</strong>.</p>
+      <h1>Easy-going events 💬🍸 – claim a free spot</h1>
+      <p>Pick an event, drop your <strong>first name</strong>, <strong>email</strong> and a few quick details so we can match Erasmus students, locals and internationals for the best vibes.</p>
       <div class="controls">
-        <input id="q" class="search" placeholder="Suchen: Cocktail, Networking, Running…" />
-        <button class="btn" id="reset">Zurücksetzen</button>
+        <input id="q" class="search" placeholder="Search: cocktails, networking, running…" />
+        <button class="btn" id="reset">Reset</button>
       </div>
     </div>
   </header>
+
+  <section class="notice">
+    <p>Quick heads-up: we only light up an event when enough people confirmed – that keeps things cozy and no one ends up sipping solo. Drop your name, reserve a spot and we’ll email you the final date + details once the crew is ready. ✉️✨</p>
+  </section>
 
   <main class="grid" id="grid"></main>
 
   <dialog id="signup">
     <div class="modal-head">
       <strong>Anmeldung</strong>
-      <button class="x" aria-label="Schließen" onclick="closeModal()">×</button>
+      <button class="x" aria-label="Close" onclick="closeModal()">×</button>
     </div>
     <form id="form" name="event-signup" class="modal-body" method="POST" data-netlify="true" netlify-honeypot="company" action="/">
-      <!-- Netlify Forms: \"event-signup\" wird automatisch erfasst. -->
+      <!-- Netlify Forms: "event-signup" wird automatisch erfasst. -->
       <input type="hidden" name="event_title" id="event_title" />
       <div class="row">
         <div class="field">
-          <label for="name">Name *</label>
-          <input required id="name" name="name" type="text" placeholder="Vor- & Nachname" />
+          <label for="first_name">First name *</label>
+          <input required id="first_name" name="first_name" type="text" placeholder="e.g. Lea" />
         </div>
         <div class="field">
-          <label for="age">Alter *</label>
-          <input required id="age" name="age" type="number" inputmode="numeric" min="16" max="100" placeholder="z. B. 27" />
+          <label for="email">Email *</label>
+          <input required id="email" name="email" type="email" placeholder="you@uni.de" />
         </div>
       </div>
       <div class="row">
         <div class="field">
-          <label for="status">Beschäftigungsstatus *</label>
-          <select required id="status" name="employment_status">
-            <option value="">Bitte wählen…</option>
-            <option>Student:in</option>
-            <option>Angestellt</option>
-            <option>Selbstständig</option>
-            <option>Arbeitssuchend</option>
-            <option>Sonstiges</option>
-          </select>
+          <label for="uni">University *</label>
+          <input required id="uni" name="university" type="text" placeholder="e.g. WWU Münster" />
         </div>
-        <div class="field">
-          <label for="email">E-Mail (Bestätigung)</label>
-          <input id="email" name="email" type="email" placeholder="optional, für Updates" />
-        </div>
+      </div>
+      <div class="field">
+        <label for="community_profile">Which option describes you best? *</label>
+        <select required id="community_profile" name="community_profile">
+          <option value="">Choose…</option>
+          <option value="erasmus">Erasmus / exchange student</option>
+          <option value="local">Local student</option>
+          <option value="new">New in town, want to meet people</option>
+          <option value="working">Working here, want to meet people</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="languages">Which languages do you speak well enough for conversations? *</label>
+        <textarea required id="languages" name="languages_conversations" rows="2" placeholder="German, English, French…"></textarea>
+      </div>
+      <div class="field">
+        <label for="preferred_language">Which language feels best for events? *</label>
+        <textarea required id="preferred_language" name="preferred_event_language" rows="2" placeholder="e.g. English for workshops, German for chill evenings"></textarea>
+      </div>
+      <div class="field">
+        <label for="date_choice">Which date works for you? *</label>
+        <select required id="date_choice" name="preferred_date">
+          <option value="">Pick a date…</option>
+          <option value="fri-05">Friday, 05.12. (evening)</option>
+          <option value="sat-06">Saturday, 06.12. (evening)</option>
+          <option value="fri-12">Friday, 12.12. (evening)</option>
+          <option value="sat-13">Saturday, 13.12. (evening)</option>
+          <option value="flex">I can’t make these but I’m still interested</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="culture_wishlist">Any events from your culture (or others) you’d love to see here?</label>
+        <textarea id="culture_wishlist" name="culture_wishlist" rows="4" placeholder="Dance nights (Salsa, Line Dance…), community cooking, games, music or film nights"></textarea>
+        <small>Tell us everything – we’re using your ideas to bring more culture & exchange to the city. 🌍</small>
       </div>
       <!-- Spam-Honeypot (Netlify) -->
       <input type="hidden" name="form-name" value="event-signup" />
       <input type="text" name="company" style="display:none" tabindex="-1" autocomplete="off" />
-      <p class="help">Mit dem Absenden stimmst du der Verarbeitung deiner Daten zum Zweck der Event-Anmeldung zu. Es fallen keine Kosten an.</p>
+      <p class="help">By sending the form you agree that we may use your data to organize these community events. It’s always free.</p>
       <div class="msg" id="msg"></div>
       <div class="modal-foot">
-        <button type="button" class="btn" onclick="closeModal()">Abbrechen</button>
-        <button type="submit" class="btn primary">Kostenfrei anmelden</button>
+        <button type="button" class="btn" onclick="closeModal()">Cancel</button>
+        <button type="submit" class="btn primary">Sign up for free</button>
       </div>
     </form>
   </dialog>
 
   <footer>
-    © <span id="year"></span> MeetUp · <a href="#" id="impressum">Impressum</a> · <a href="#" id="privacy">Datenschutz</a>
+    © <span id="year"></span> MeetUp · <a href="#" id="impressum">Impressum</a> · <a href="#" id="privacy">Privacy</a>
   </footer>
 
   <script>
-    // ---- Demo-Eventdaten (bearbeiten/erweitern) ----
     const EVENTS = [
-      { id: 'mix-101', title: 'Cocktail-Workshop: Skinny Bitch & Friends', date: '2025-11-22', time: '19:00', city: 'Münster', tags: ['Cocktail', 'Social'], spots: 12 },
-      { id: 'net-201', title: 'Afterwork Networking × IT & Creators', date: '2025-11-27', time: '18:30', city: 'Münster', tags: ['Networking'], spots: 25 },
-      { id: 'run-301', title: 'Morning Run & Coffee', date: '2025-11-29', time: '09:00', city: 'Münster', tags: ['Sport', 'Outdoor'], spots: 15 },
-      { id: 'brd-401', title: 'Boardgame Sunday', date: '2025-12-07', time: '15:00', city: 'Münster', tags: ['Spiele', 'Social'], spots: 10 },
+      { id: 'tiki-101', title: 'Tiki Cocktail Network Night', date: '2025-12-05', time: '19:00', city: 'Münster', tags: ['Indoor', 'Networking'], spots: 8 },
+      { id: 'glw-201', title: 'Frosty Glühwein Night am Aasee', date: '2025-12-06', time: '18:00', city: 'Münster', tags: ['Outdoor', 'Social'], spots: 20 }
     ];
 
     const grid = document.getElementById('grid');
@@ -88,22 +112,22 @@
 
     function fmtDate(iso) {
       const d = new Date(iso + 'T00:00:00');
-      return d.toLocaleDateString('de-DE', { weekday: 'short', day: '2-digit', month: 'short' });
+      return d.toLocaleDateString('en-GB', { weekday: 'short', day: '2-digit', month: 'short' });
     }
 
     function render(list) {
       grid.innerHTML = list.map(e => `
         <article class="card" data-id="${e.id}">
           <div class="meta">
-            <span class="pill">${fmtDate(e.date)} · ${e.time} Uhr</span>
+            <span class="pill">${fmtDate(e.date)} · ${e.time}</span>
             <span class="pill">${e.city}</span>
-            <span class="pill">${e.spots} Plätze</span>
+            <span class="pill">${e.spots} spots</span>
           </div>
           <h3>${e.title}</h3>
           <div class="meta">${e.tags.map(t => `<span class="pill">#${t}</span>`).join('')}</div>
           <div class="cta-row">
-            <button class="btn primary" onclick="openModal('${e.title.replace(/'/g, "&#39;")}')">Kostenfrei anmelden</button>
-            <button class="btn ghost" onclick="share('${e.title.replace(/'/g, "&#39;")}')">Teilen</button>
+            <button class="btn primary" onclick="openModal('${e.title.replace(/'/g, "&#39;")}')">Sign up</button>
+            <button class="btn ghost" onclick="share('${e.title.replace(/'/g, "&#39;")}')">Share</button>
           </div>
         </article>
       `).join('');
@@ -123,7 +147,6 @@
     document.getElementById('reset').addEventListener('click', () => { q.value = ''; render(EVENTS); });
     q.addEventListener('input', filter);
 
-    // Modal & Form Handling
     const dlg = document.getElementById('signup');
     function openModal(title) {
       document.getElementById('event_title').value = title;
@@ -131,22 +154,17 @@
       document.getElementById('msg').textContent = '';
       dlg.showModal();
     }
-    function closeModal() { dlg.close(); }
+    function closeModal() {
+      dlg.close();
+    }
     window.closeModal = closeModal; window.openModal = openModal;
 
     async function handleSubmit(e) {
       e.preventDefault();
       const msg = document.getElementById('msg');
 
-      // Simple client validation
-      const age = Number(document.getElementById('age').value);
-      if (Number.isNaN(age) || age < 16 || age > 100) {
-        msg.textContent = 'Bitte gib ein Alter zwischen 16 und 100 an.';
-        msg.className = 'msg err';
-        return;
-      }
-
       const form = e.target;
+      if (!form.reportValidity()) return;
       const data = new FormData(form);
       if (!data.has('form-name') && form.name) data.append('form-name', form.name);
       const body = new URLSearchParams();
@@ -160,29 +178,27 @@
         });
         if (res.ok) {
           form.reset();
-          msg.innerHTML = 'Danke! Deine kostenfreie Anmeldung ist eingegangen.';
+          msg.innerHTML = 'Thanks! Your free registration is in.';
           msg.className = 'msg ok';
         } else {
-          msg.textContent = 'Uups – etwas ist schiefgelaufen. Bitte später erneut versuchen.';
+          msg.textContent = 'Whoops – something went wrong. Please try again later.';
           msg.className = 'msg err';
         }
       } catch (err) {
-        msg.textContent = 'Keine Verbindung. Prüfe deine Internetverbindung.';
+        msg.textContent = 'Offline? Please check your internet connection.';
         msg.className = 'msg err';
       }
     }
     document.getElementById('form').addEventListener('submit', handleSubmit);
 
-    // Share API (best effort)
     function share(title) {
-      const text = `Komm mit zu "${title}" – kostenlose Anmeldung!`;
+      const text = `Join me at "${title}" – free RSVP!`;
       const url = location.href;
       if (navigator.share) navigator.share({ title: document.title, text, url });
       else navigator.clipboard.writeText(url).then(() => alert('Link kopiert!'));
     }
     window.share = share;
 
-    // Init
     render(EVENTS);
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>

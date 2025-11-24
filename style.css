@@ -56,6 +56,14 @@ header {
     margin: 18px auto 0;
 }
 
+.notice {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 20px;
+    color: var(--accent);
+    text-align: center;
+}
+
 .search {
     padding: 12px 14px;
     border-radius: 12px;
@@ -198,12 +206,22 @@ label {
 input[type="text"],
 input[type="number"],
 select,
-input[type="email"] {
+input[type="email"],
+textarea {
     padding: 12px 12px;
     border-radius: 12px;
     border: 1px solid #1b2230;
     background: #0c111a;
     color: var(--text);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 70px;
+}
+
+form small {
+    color: var(--muted);
 }
 
 .help {
