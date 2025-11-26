@@ -11,8 +11,11 @@
   <header>
     <div class="brand">MEETUP · COMMUNITY</div>
     <div class="hero">
-      <h1>Easy-going events 💬🍸 – claim a free spot</h1>
-      <p>Pick an event, drop your <strong>first name</strong>, <strong>email</strong> and a few quick details so we can match Erasmus students, locals and internationals for the best vibes.</p>
+      <h1>Easy-going events 💬🍸 – grab your free spot</h1>
+      <p>This is a little pilot project to connect people in the same city and similar age – local students, Erasmus students, trainees and new arrivals. 🌍</p>
+      <p>We’re testing small, relaxed events like cocktail nights, game evenings or culture hangouts where you can actually talk, laugh and meet people you might already walk past on campus, in town or at work. 🍹🎲</p>
+      <p>Pick an event, drop your <strong>first name</strong>, <strong>email</strong> and a few quick details so we can match Erasmus students, locals and internationals for the best vibes. 🤝</p>
+      <p class="intro">Let’s mash up cultures, mix groups and experience the city in its full, diverse potential together. ✨</p>
       <div class="controls">
         <input id="q" class="search" placeholder="Search: cocktails, networking, running…" />
         <button class="btn" id="reset">Reset</button>
@@ -21,19 +24,20 @@
   </header>
 
   <section class="notice">
-    <p>Quick heads-up: we only light up an event when enough people confirmed – that keeps things cozy and no one ends up sipping solo. Drop your name, reserve a spot and we’ll email you the final date + details once the crew is ready. ✉️✨</p>
+    <p>Quick heads-up: we only light up an event when enough people confirmed. That keeps things cozy and no one ends up sipping solo. Drop your name, reserve a spot and we’ll email you the final date + details once the crew is ready. ✉️✨</p>
   </section>
 
   <main class="grid" id="grid"></main>
 
   <dialog id="signup">
     <div class="modal-head">
-      <strong>Anmeldung</strong>
+      <strong>Registration</strong>
       <button class="x" aria-label="Close" onclick="closeModal()">×</button>
     </div>
     <form id="form" name="event-signup" class="modal-body" method="POST" data-netlify="true" netlify-honeypot="company" action="/">
       <!-- Netlify Forms: "event-signup" wird automatisch erfasst. -->
       <input type="hidden" name="event_title" id="event_title" />
+      <input type="hidden" name="form_mode" id="form_mode" value="full" />
       <div class="row">
         <div class="field">
           <label for="first_name">First name *</label>
@@ -46,11 +50,15 @@
       </div>
       <div class="row">
         <div class="field">
-          <label for="uni">University *</label>
-          <input required id="uni" name="university" type="text" placeholder="e.g. WWU Münster" />
+          <label for="age">Age *</label>
+          <input required id="age" name="age" type="number" min="16" max="60" placeholder="e.g. 23" />
+        </div>
+        <div class="field" data-mode="full">
+          <label for="uni">University (optional)</label>
+          <input id="uni" name="university" type="text" placeholder="e.g. WWU Münster" />
         </div>
       </div>
-      <div class="field">
+      <div class="field" data-mode="full">
         <label for="community_profile">Which option describes you best? *</label>
         <select required id="community_profile" name="community_profile">
           <option value="">Choose…</option>
@@ -61,34 +69,43 @@
           <option value="other">Other</option>
         </select>
       </div>
-      <div class="field">
-        <label for="languages">Which languages do you speak well enough for conversations? *</label>
-        <textarea required id="languages" name="languages_conversations" rows="2" placeholder="German, English, French…"></textarea>
+      <div class="field" data-mode="full">
+        <label for="languages">How many languages do you speak well? (optional)</label>
+        <textarea id="languages" name="languages_conversations" rows="2" placeholder="German, English, French…"></textarea>
       </div>
-      <div class="field">
-        <label for="preferred_language">Which language feels best for events? *</label>
-        <textarea required id="preferred_language" name="preferred_event_language" rows="2" placeholder="e.g. English for workshops, German for chill evenings"></textarea>
-      </div>
-      <div class="field">
+      <div class="field" data-mode="full">
         <label for="date_choice">Which date works for you? *</label>
         <select required id="date_choice" name="preferred_date">
           <option value="">Pick a date…</option>
-          <option value="fri-05">Friday, 05.12. (evening)</option>
-          <option value="sat-06">Saturday, 06.12. (evening)</option>
-          <option value="fri-12">Friday, 12.12. (evening)</option>
-          <option value="sat-13">Saturday, 13.12. (evening)</option>
-          <option value="flex">I can’t make these but I’m still interested</option>
         </select>
       </div>
-      <div class="field">
+      <div class="field" data-mode="full">
         <label for="culture_wishlist">Any events from your culture (or others) you’d love to see here?</label>
         <textarea id="culture_wishlist" name="culture_wishlist" rows="4" placeholder="Dance nights (Salsa, Line Dance…), community cooking, games, music or film nights"></textarea>
         <small>Tell us everything – we’re using your ideas to bring more culture & exchange to the city. 🌍</small>
       </div>
+      <div class="field" data-mode="simple potluck">
+        <label for="interest_level">Are you interested in joining? *</label>
+        <select required id="interest_level" name="interest_level">
+          <option value="">Choose…</option>
+          <option value="count-me-in">Count me in</option>
+          <option value="maybe">Sounds interesting, keep me posted</option>
+          <option value="info">Need more info first</option>
+        </select>
+      </div>
+      <div class="field" data-mode="simple" data-potluck="true">
+        <label for="favorite_dishes">Which dishes from other cultures would you love to try?</label>
+        <textarea required id="favorite_dishes" name="favorite_dishes" rows="3" placeholder="Philippines: Adobo, Uganda: Rolex, Brazil: Feijoada…"></textarea>
+      </div>
+      <div class="field" data-mode="simple" data-potluck="true">
+        <label for="bring_dish">What dish would you bring to the potluck?</label>
+        <textarea required id="bring_dish" name="bring_dish" rows="3" placeholder="Tell us what you’d cook or bake"></textarea>
+        <small>We’ll email you the plan as soon as enough foodies have signed up.</small>
+      </div>
       <!-- Spam-Honeypot (Netlify) -->
       <input type="hidden" name="form-name" value="event-signup" />
       <input type="text" name="company" style="display:none" tabindex="-1" autocomplete="off" />
-      <p class="help">By sending the form you agree that we may use your data to organize these community events. It’s always free.</p>
+      <p class="help">By sending the form you agree that we may use your data to organize these community events. We’ll email you the details (including any contributions) once the plan is set.</p>
       <div class="msg" id="msg"></div>
       <div class="modal-foot">
         <button type="button" class="btn" onclick="closeModal()">Cancel</button>
@@ -103,34 +120,133 @@
 
   <script>
     const EVENTS = [
-      { id: 'tiki-101', title: 'Tiki Cocktail Network Night', date: '2025-12-05', time: '19:00', city: 'Münster', tags: ['Indoor', 'Networking'], spots: 8 },
-      { id: 'glw-201', title: 'Frosty Glühwein Night am Aasee', date: '2025-12-06', time: '18:00', city: 'Münster', tags: ['Outdoor', 'Social'], spots: 20 }
+      {
+        id: 'tiki-101',
+        title: 'Tiki Cocktail Network Night',
+        date: '2025-12-05',
+        time: '19:00',
+        city: 'Münster',
+        tags: ['Indoor', 'Networking'],
+        spots: 8,
+        paid: true,
+        formMode: 'simple',
+        category: 'default',
+        status: 'planning',
+        description: 'We turn a cozy flatshare into a tiny tiki bar, shake up two easy cocktails and keep the circle small so everyone really connects. 🍍🥂'
+      },
+      {
+        id: 'glw-201',
+        title: 'Frosty Glühwein Night am Aasee',
+        date: '2025-12-06',
+        time: '18:00',
+        city: 'Münster',
+        tags: ['Outdoor', 'Social'],
+        spots: 20,
+        paid: false,
+        formMode: 'full',
+        category: 'default',
+        status: 'upcoming',
+        description: 'Join us for a chilled Glühwein evening by the Aasee. We bring pots, cookers, cups and the first batch of hot drinks. Bring your own mulled wine or punch, heat it up with the shared gear and pass it around while we warm our hands, swap drinks and meet new people by the water. 🔥🍷'
+      },
+      {
+        id: 'pot-301',
+        title: 'Global Potluck Mashup',
+        date: '2025-12-09',
+        time: '18:00',
+        city: 'Münster',
+        tags: ['Food', 'Community'],
+        spots: 24,
+        paid: false,
+        formMode: 'simple',
+        category: 'potluck',
+        status: 'planning',
+        description: 'Imagine dishes from the Philippines, Uganda, Brazil & friends lining one long table. Bring a dish, taste a dozen more and get the full flavour tour once enough people are in. 🍲🌍'
+      }
     ];
+    const DATE_OPTIONS = {
+      'tiki-101': [
+        { value: 'fri-05', label: 'Friday, 05.12. · 19:00 (evening)' },
+        { value: 'sat-06', label: 'Saturday, 06.12. · 15:00 (afternoon)' },
+        { value: 'fri-12', label: 'Friday, 12.12. · 19:00 (evening)' },
+        { value: 'sat-13', label: 'Saturday, 13.12. · 15:00 (afternoon)' },
+        { value: 'flex', label: 'I can’t make these dates but I’m still interested' }
+      ],
+      'glw-201': [
+        { value: 'fri-05', label: 'Friday, 05.12. · 19:00 (evening)' },
+        { value: 'sat-06', label: 'Saturday, 06.12. · 19:00 (evening)' },
+        { value: 'fri-12', label: 'Friday, 12.12. · 19:00 (evening)' },
+        { value: 'sat-13', label: 'Saturday, 13.12. · 19:00 (evening)' },
+        { value: 'flex', label: 'I can’t make these dates but I’m still interested' }
+      ]
+    };
 
     const grid = document.getElementById('grid');
     const q = document.getElementById('q');
+    const dateSelect = document.getElementById('date_choice');
+    const modeSections = document.querySelectorAll('[data-mode]');
+    const formModeInput = document.getElementById('form_mode');
+    const potluckSections = document.querySelectorAll('[data-potluck="true"]');
+    let activeEventId = null;
+    let activeFormMode = 'full';
+    let activeEventCategory = 'default';
 
     function fmtDate(iso) {
       const d = new Date(iso + 'T00:00:00');
       return d.toLocaleDateString('en-GB', { weekday: 'short', day: '2-digit', month: 'short' });
     }
 
+    function setDateOptions(eventId) {
+      if (!dateSelect) return;
+      const options = DATE_OPTIONS[eventId];
+      if (!options) {
+        dateSelect.innerHTML = '<option value="">Pick a date…</option>';
+        dateSelect.value = '';
+        return;
+      }
+      dateSelect.innerHTML = ['<option value="">Pick a date…</option>', ...options.map(opt => `<option value="${opt.value}">${opt.label}</option>`)].join('');
+      dateSelect.value = '';
+    }
+
+    function applyFormMode(mode) {
+      activeFormMode = mode || 'full';
+      if (formModeInput) formModeInput.value = activeFormMode;
+      modeSections.forEach(section => {
+        const modes = section.dataset.mode.split(/\s+/);
+        const requiresPotluck = section.dataset.potluck === 'true';
+        const matchesMode = modes.includes(activeFormMode);
+        const show = matchesMode && (!requiresPotluck || activeEventCategory === 'potluck');
+        section.hidden = !show;
+        section.querySelectorAll('input, select, textarea').forEach(input => {
+          if (!input.dataset.wasRequired) input.dataset.wasRequired = input.required ? 'true' : 'false';
+          input.disabled = !show;
+          input.required = show && input.dataset.wasRequired === 'true';
+        });
+      });
+      if (activeFormMode !== 'full' && dateSelect) dateSelect.value = '';
+    }
+
     function render(list) {
-      grid.innerHTML = list.map(e => `
+      grid.innerHTML = list.map(e => {
+        const statusClass = e.status === 'planning' ? 'planning' : 'upcoming';
+        const statusLabel = e.status === 'planning' ? 'In planning' : 'Upcoming';
+        return `
         <article class="card" data-id="${e.id}">
           <div class="meta">
-            <span class="pill">${fmtDate(e.date)} · ${e.time}</span>
+            <span class="pill ${statusClass}">${statusLabel}</span>
             <span class="pill">${e.city}</span>
             <span class="pill">${e.spots} spots</span>
+            <span class="pill ${e.paid ? 'paid' : 'free'}">${e.paid ? 'Paid experience' : 'Free'}</span>
           </div>
           <h3>${e.title}</h3>
+          <p class="card-desc">${e.description}</p>
           <div class="meta">${e.tags.map(t => `<span class="pill">#${t}</span>`).join('')}</div>
           <div class="cta-row">
-            <button class="btn primary" onclick="openModal('${e.title.replace(/'/g, "&#39;")}')">Sign up</button>
-            <button class="btn ghost" onclick="share('${e.title.replace(/'/g, "&#39;")}')">Share</button>
+            <button class="btn primary" onclick="openModal('${e.id}')">Sign up ✍️</button>
+            <button class="btn ghost" onclick="share('${e.title.replace(/'/g, "&#39;")}')">Share 🔗</button>
           </div>
         </article>
-      `).join('');
+      `;
+      }).join('');
     }
 
     function filter() {
@@ -148,14 +264,26 @@
     q.addEventListener('input', filter);
 
     const dlg = document.getElementById('signup');
-    function openModal(title) {
-      document.getElementById('event_title').value = title;
+    function openModal(eventId) {
+      const event = EVENTS.find(e => e.id === eventId);
+      activeEventId = event ? event.id : null;
+      activeEventCategory = event?.category || 'default';
+      const inferredMode = event?.status === 'upcoming' ? 'full' : 'simple';
+      const mode = event?.formMode || inferredMode;
+      document.getElementById('event_title').value = event ? event.title : '';
+      applyFormMode(mode);
+      setDateOptions(mode === 'full' ? activeEventId : null);
       document.getElementById('msg').className = 'msg';
       document.getElementById('msg').textContent = '';
       dlg.showModal();
     }
     function closeModal() {
       dlg.close();
+      activeEventId = null;
+      applyFormMode('full');
+      activeEventCategory = 'default';
+      setDateOptions(null);
+      document.getElementById('event_title').value = '';
     }
     window.closeModal = closeModal; window.openModal = openModal;
 
@@ -192,13 +320,15 @@
     document.getElementById('form').addEventListener('submit', handleSubmit);
 
     function share(title) {
-      const text = `Join me at "${title}" – free RSVP!`;
+      const text = `Join me at "${title}" – free RSVP! 🎉`;
       const url = location.href;
       if (navigator.share) navigator.share({ title: document.title, text, url });
-      else navigator.clipboard.writeText(url).then(() => alert('Link kopiert!'));
+      else navigator.clipboard.writeText(url).then(() => alert('Link copied!'));
     }
     window.share = share;
 
+    applyFormMode('full');
+    setDateOptions(null);
     render(EVENTS);
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
