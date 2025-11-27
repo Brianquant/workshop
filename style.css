@@ -147,6 +147,13 @@ header {
     font-weight: 600;
 }
 
+.pill.interest {
+    background: linear-gradient(135deg, rgba(255, 223, 127, 0.2), rgba(255, 159, 127, 0.2));
+    color: #ffdf7f;
+    border: 1px solid rgba(255, 223, 127, 0.4);
+    font-weight: 600;
+}
+
 .pill.free {
     border-color: var(--accent-2);
     color: var(--accent-2);
@@ -235,6 +242,33 @@ form .row {
     display: grid;
     gap: 12px;
     margin-bottom: 15px;
+}
+
+.form-fields {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+}
+
+@media (min-width: 640px) {
+    .form-fields {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+}
+
+.form-fields .field.half {
+    grid-column: span 1;
+}
+
+.form-fields .field.full {
+    grid-column: 1 / -1;
+}
+
+.checkbox-option {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
 }
 
 label {

@@ -37,71 +37,7 @@
     <form id="form" name="event-signup" class="modal-body" method="POST" data-netlify="true" netlify-honeypot="company" action="/">
       <!-- Netlify Forms: "event-signup" wird automatisch erfasst. -->
       <input type="hidden" name="event_title" id="event_title" />
-      <input type="hidden" name="form_mode" id="form_mode" value="full" />
-      <div class="row">
-        <div class="field">
-          <label for="first_name">First name *</label>
-          <input required id="first_name" name="first_name" type="text" placeholder="e.g. Lea" />
-        </div>
-        <div class="field">
-          <label for="email">Email *</label>
-          <input required id="email" name="email" type="email" placeholder="you@uni.de" />
-        </div>
-      </div>
-      <div class="row">
-        <div class="field">
-          <label for="age">Age *</label>
-          <input required id="age" name="age" type="number" min="16" max="60" placeholder="e.g. 23" />
-        </div>
-        <div class="field" data-mode="full">
-          <label for="uni">University (optional)</label>
-          <input id="uni" name="university" type="text" placeholder="e.g. WWU Münster" />
-        </div>
-      </div>
-      <div class="field" data-mode="full">
-        <label for="community_profile">Which option describes you best? *</label>
-        <select required id="community_profile" name="community_profile">
-          <option value="">Choose…</option>
-          <option value="erasmus">Erasmus / exchange student</option>
-          <option value="local">Local student</option>
-          <option value="new">New in town, want to meet people</option>
-          <option value="working">Working here, want to meet people</option>
-          <option value="other">Other</option>
-        </select>
-      </div>
-      <div class="field" data-mode="full">
-        <label for="languages">How many languages do you speak well? (optional)</label>
-        <textarea id="languages" name="languages_conversations" rows="2" placeholder="German, English, French…"></textarea>
-      </div>
-      <div class="field" data-mode="full">
-        <label for="date_choice">Which date works for you? *</label>
-        <select required id="date_choice" name="preferred_date">
-          <option value="">Pick a date…</option>
-        </select>
-      </div>
-      <div class="field" data-mode="full">
-        <label for="culture_wishlist">Any events from your culture (or others) you’d love to see here?</label>
-        <textarea id="culture_wishlist" name="culture_wishlist" rows="4" placeholder="Dance nights (Salsa, Line Dance…), community cooking, games, music or film nights"></textarea>
-        <small>Tell us everything – we’re using your ideas to bring more culture & exchange to the city. 🌍</small>
-      </div>
-      <div class="field" data-mode="simple potluck">
-        <label for="interest_level">Are you interested in joining? *</label>
-        <select required id="interest_level" name="interest_level">
-          <option value="">Choose…</option>
-          <option value="count-me-in">Count me in</option>
-          <option value="maybe">Sounds interesting, keep me posted</option>
-          <option value="info">Need more info first</option>
-        </select>
-      </div>
-      <div class="field" data-mode="simple" data-potluck="true">
-        <label for="favorite_dishes">Which dishes from other cultures would you love to try?</label>
-        <textarea required id="favorite_dishes" name="favorite_dishes" rows="3" placeholder="Philippines: Adobo, Uganda: Rolex, Brazil: Feijoada…"></textarea>
-      </div>
-      <div class="field" data-mode="simple" data-potluck="true">
-        <label for="bring_dish">What dish would you bring to the potluck?</label>
-        <textarea required id="bring_dish" name="bring_dish" rows="3" placeholder="Tell us what you’d cook or bake"></textarea>
-        <small>We’ll email you the plan as soon as enough foodies have signed up.</small>
-      </div>
+      <div id="formFields" class="form-fields"></div>
       <!-- Spam-Honeypot (Netlify) -->
       <input type="hidden" name="form-name" value="event-signup" />
       <input type="text" name="company" style="display:none" tabindex="-1" autocomplete="off" />
@@ -130,9 +66,9 @@
         spots: 8,
         paid: true,
         formMode: 'simple',
-        category: 'default',
-        status: 'planning',
-        description: 'We turn a cozy flatshare into a tiny tiki bar, shake up two easy cocktails and keep the circle small so everyone really connects. 🍍🥂'
+        source_hash: 'tiki-101',
+        status: 'interest',
+        description: 'We turn a cozy flatshare into a tiny tiki bar, shake up two easy cocktails and keep the circle small so everyone really connects – you just chip in a small amount on the spot. 🍍🥂'
       },
       {
         id: 'glw-201',
@@ -144,8 +80,8 @@
         spots: 20,
         paid: false,
         formMode: 'full',
-        category: 'default',
-        status: 'upcoming',
+        source_hash: 'glw-201',
+        status: 'interest',
         description: 'Join us for a chilled Glühwein evening by the Aasee. We bring pots, cookers, cups and the first batch of hot drinks. Bring your own mulled wine or punch, heat it up with the shared gear and pass it around while we warm our hands, swap drinks and meet new people by the water. 🔥🍷'
       },
       {
@@ -158,77 +94,183 @@
         spots: 24,
         paid: false,
         formMode: 'simple',
-        category: 'potluck',
-        status: 'planning',
+        extraQuestions: ['potluck'],
+        source_hash: 'pot-301',
+        status: 'interest',
         description: 'Imagine dishes from the Philippines, Uganda, Brazil & friends lining one long table. Bring a dish, taste a dozen more and get the full flavour tour once enough people are in. 🍲🌍'
       }
     ];
-    const DATE_OPTIONS = {
-      'tiki-101': [
-        { value: 'fri-05', label: 'Friday, 05.12. · 19:00 (evening)' },
-        { value: 'sat-06', label: 'Saturday, 06.12. · 15:00 (afternoon)' },
-        { value: 'fri-12', label: 'Friday, 12.12. · 19:00 (evening)' },
-        { value: 'sat-13', label: 'Saturday, 13.12. · 15:00 (afternoon)' },
-        { value: 'flex', label: 'I can’t make these dates but I’m still interested' }
-      ],
-      'glw-201': [
-        { value: 'fri-05', label: 'Friday, 05.12. · 19:00 (evening)' },
-        { value: 'sat-06', label: 'Saturday, 06.12. · 19:00 (evening)' },
-        { value: 'fri-12', label: 'Friday, 12.12. · 19:00 (evening)' },
-        { value: 'sat-13', label: 'Saturday, 13.12. · 19:00 (evening)' },
-        { value: 'flex', label: 'I can’t make these dates but I’m still interested' }
+    const AGE_RANGE_OPTIONS = [
+      { value: '16-20', label: '16–20' },
+      { value: '21-25', label: '21–25' },
+      { value: '26-30', label: '26–30' },
+      { value: '31-35', label: '31–35' },
+      { value: '36-plus', label: '36+' }
+    ];
+    const COMMUNITY_PROFILE_OPTIONS = [
+      { value: 'erasmus', label: 'Erasmus / exchange student' },
+      { value: 'local', label: 'Local student' },
+      { value: 'new', label: 'New in town, want to meet people' },
+      { value: 'working', label: 'Working here, want to meet people' },
+      { value: 'other', label: 'Other' }
+    ];
+    const FORM_TEMPLATE_UNIFIED = [
+      { type: 'text', name: 'first_name', label: 'Full name *', required: true, placeholder: 'e.g. Lea', width: 'half' },
+      { type: 'email', name: 'email', label: 'Email', placeholder: 'you@uni.de', width: 'half' },
+      { type: 'select', name: 'age_range', label: 'Age range *', required: true, placeholderOption: 'Select your age range…', options: AGE_RANGE_OPTIONS, width: 'full' },
+      { type: 'select', name: 'current_situation', label: 'Current situation *', required: true, placeholderOption: 'Choose…', options: COMMUNITY_PROFILE_OPTIONS, width: 'full' },
+      { type: 'textarea', name: 'culture_wishlist', label: 'Any events from your culture (or others) you’d love to see here?', rows: 4, placeholder: 'Dance nights (Salsa, Line Dance…), community cooking, games, music or film nights', hint: 'Tell us everything – we’re using your ideas to bring more culture & exchange to the city. 🌍' },
+      { type: 'checkbox', name: 'consent', label: 'I agree that my data may be used to contact me about this event and similar student events.', required: true },
+      { type: 'hidden', name: 'source_hash', value: event => event?.source_hash || event?.id || '' }
+    ];
+    const EXTRA_FIELD_SETS = {
+      potluck: [
+        { type: 'textarea', name: 'favorite_dishes', label: 'Which dishes from other cultures would you love to try?', placeholder: 'Philippines: Adobo, Uganda: Rolex, Brazil: Feijoada…' },
+        { type: 'textarea', name: 'bring_dish', label: 'What dish would you bring to the potluck?', placeholder: 'Tell us what you’d cook or bake', hint: 'We’ll email you the plan as soon as enough foodies have signed up.' }
       ]
     };
 
     const grid = document.getElementById('grid');
     const q = document.getElementById('q');
-    const dateSelect = document.getElementById('date_choice');
-    const modeSections = document.querySelectorAll('[data-mode]');
-    const formModeInput = document.getElementById('form_mode');
-    const potluckSections = document.querySelectorAll('[data-potluck="true"]');
+    const form = document.getElementById('form');
+    const formFields = document.getElementById('formFields');
+    const dlg = document.getElementById('signup');
     let activeEventId = null;
-    let activeFormMode = 'full';
-    let activeEventCategory = 'default';
+
+    function resolveOptions(opts, event) {
+      if (typeof opts === 'function') return opts(event) || [];
+      return opts || [];
+    }
+
+    function buildField(config, event) {
+      const wrapper = document.createElement('div');
+      const widthClass = config.width === 'half' ? 'half' : 'full';
+      wrapper.className = `field ${widthClass}`;
+
+      if (config.type === 'hidden') {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = config.name;
+        input.value = typeof config.value === 'function' ? config.value(event) : (config.value || '');
+        wrapper.style.display = 'none';
+        wrapper.appendChild(input);
+        return wrapper;
+      }
+
+      const id = `${config.name}-${Math.random().toString(36).slice(2, 7)}`;
+      if (config.type === 'checkbox') {
+        const label = document.createElement('label');
+        const input = document.createElement('input');
+        input.type = 'checkbox';
+        input.id = id;
+        input.name = config.name;
+        if (config.required) input.required = true;
+        label.appendChild(input);
+        const text = document.createTextNode(` ${config.label}`);
+        label.appendChild(text);
+        wrapper.appendChild(label);
+        if (config.hint) {
+          const hint = document.createElement('small');
+          hint.textContent = config.hint;
+          wrapper.appendChild(hint);
+        }
+        return wrapper;
+      }
+
+      if (config.type === 'checkbox-group') {
+        const legend = document.createElement('p');
+        legend.textContent = config.label;
+        wrapper.appendChild(legend);
+        const options = resolveOptions(config.options, event);
+        options.forEach((opt, idx) => {
+          const optionLabel = document.createElement('label');
+          optionLabel.className = 'checkbox-option';
+          const checkbox = document.createElement('input');
+          checkbox.type = 'checkbox';
+          checkbox.name = config.name;
+          checkbox.value = opt.value;
+          if (config.required) checkbox.required = true;
+          optionLabel.appendChild(checkbox);
+          optionLabel.appendChild(document.createTextNode(` ${opt.label}`));
+          wrapper.appendChild(optionLabel);
+        });
+        if (config.hint) {
+          const hint = document.createElement('small');
+          hint.textContent = config.hint;
+          wrapper.appendChild(hint);
+        }
+        return wrapper;
+      }
+
+      const label = document.createElement('label');
+      label.setAttribute('for', id);
+      label.textContent = config.label;
+      wrapper.appendChild(label);
+
+      let input;
+      if (config.type === 'textarea') {
+        input = document.createElement('textarea');
+        input.rows = config.rows || 3;
+      } else if (config.type === 'select') {
+        input = document.createElement('select');
+        const placeholder = document.createElement('option');
+        placeholder.value = '';
+        placeholder.textContent = config.placeholderOption || 'Choose…';
+        placeholder.disabled = true;
+        placeholder.selected = true;
+        input.appendChild(placeholder);
+        resolveOptions(config.options, event).forEach(opt => {
+          const option = document.createElement('option');
+          option.value = opt.value;
+          option.textContent = opt.label;
+          input.appendChild(option);
+        });
+      } else {
+        input = document.createElement('input');
+        input.type = config.type || 'text';
+        if (config.min !== undefined) input.min = config.min;
+        if (config.max !== undefined) input.max = config.max;
+      }
+      input.id = id;
+      input.name = config.name;
+      if (config.required) input.required = true;
+      if (config.placeholder && config.type !== 'select') input.placeholder = config.placeholder;
+      wrapper.appendChild(input);
+
+      if (config.hint) {
+        const hint = document.createElement('small');
+        hint.textContent = config.hint;
+        wrapper.appendChild(hint);
+      }
+      return wrapper;
+    }
+
+    function renderFormFields(event) {
+      let fields = FORM_TEMPLATE_UNIFIED.slice();
+      (event?.extraQuestions || []).forEach(key => {
+        if (EXTRA_FIELD_SETS[key]) fields = fields.concat(EXTRA_FIELD_SETS[key]);
+      });
+      if (!fields.length) fields = FORM_TEMPLATE_UNIFIED;
+      formFields.innerHTML = '';
+      fields.forEach(field => formFields.appendChild(buildField(field, event)));
+    }
 
     function fmtDate(iso) {
       const d = new Date(iso + 'T00:00:00');
       return d.toLocaleDateString('en-GB', { weekday: 'short', day: '2-digit', month: 'short' });
     }
 
-    function setDateOptions(eventId) {
-      if (!dateSelect) return;
-      const options = DATE_OPTIONS[eventId];
-      if (!options) {
-        dateSelect.innerHTML = '<option value="">Pick a date…</option>';
-        dateSelect.value = '';
-        return;
-      }
-      dateSelect.innerHTML = ['<option value="">Pick a date…</option>', ...options.map(opt => `<option value="${opt.value}">${opt.label}</option>`)].join('');
-      dateSelect.value = '';
-    }
-
-    function applyFormMode(mode) {
-      activeFormMode = mode || 'full';
-      if (formModeInput) formModeInput.value = activeFormMode;
-      modeSections.forEach(section => {
-        const modes = section.dataset.mode.split(/\s+/);
-        const requiresPotluck = section.dataset.potluck === 'true';
-        const matchesMode = modes.includes(activeFormMode);
-        const show = matchesMode && (!requiresPotluck || activeEventCategory === 'potluck');
-        section.hidden = !show;
-        section.querySelectorAll('input, select, textarea').forEach(input => {
-          if (!input.dataset.wasRequired) input.dataset.wasRequired = input.required ? 'true' : 'false';
-          input.disabled = !show;
-          input.required = show && input.dataset.wasRequired === 'true';
-        });
-      });
-      if (activeFormMode !== 'full' && dateSelect) dateSelect.value = '';
-    }
-
     function render(list) {
       grid.innerHTML = list.map(e => {
-        const statusClass = e.status === 'planning' ? 'planning' : 'upcoming';
-        const statusLabel = e.status === 'planning' ? 'In planning' : 'Upcoming';
+        let statusClass = 'upcoming';
+        let statusLabel = 'Upcoming';
+        if (e.status === 'planning') {
+          statusClass = 'planning';
+          statusLabel = 'In planning';
+        } else if (e.status === 'interest') {
+          statusClass = 'interest';
+          statusLabel = 'Interest check';
+        }
         return `
         <article class="card" data-id="${e.id}">
           <div class="meta">
@@ -263,27 +305,21 @@
     document.getElementById('reset').addEventListener('click', () => { q.value = ''; render(EVENTS); });
     q.addEventListener('input', filter);
 
-    const dlg = document.getElementById('signup');
     function openModal(eventId) {
       const event = EVENTS.find(e => e.id === eventId);
       activeEventId = event ? event.id : null;
-      activeEventCategory = event?.category || 'default';
-      const inferredMode = event?.status === 'upcoming' ? 'full' : 'simple';
-      const mode = event?.formMode || inferredMode;
+      form.reset();
+      renderFormFields(event);
       document.getElementById('event_title').value = event ? event.title : '';
-      applyFormMode(mode);
-      setDateOptions(mode === 'full' ? activeEventId : null);
-      document.getElementById('msg').className = 'msg';
-      document.getElementById('msg').textContent = '';
+      const msgEl = document.getElementById('msg');
+      msgEl.className = 'msg';
+      msgEl.textContent = '';
       dlg.showModal();
     }
     function closeModal() {
       dlg.close();
+      form.reset();
       activeEventId = null;
-      applyFormMode('full');
-      activeEventCategory = 'default';
-      setDateOptions(null);
-      document.getElementById('event_title').value = '';
     }
     window.closeModal = closeModal; window.openModal = openModal;
 
@@ -291,21 +327,21 @@
       e.preventDefault();
       const msg = document.getElementById('msg');
 
-      const form = e.target;
-      if (!form.reportValidity()) return;
-      const data = new FormData(form);
-      if (!data.has('form-name') && form.name) data.append('form-name', form.name);
+      const currentForm = e.target;
+      if (!currentForm.reportValidity()) return;
+      const data = new FormData(currentForm);
+      if (!data.has('form-name') && currentForm.name) data.append('form-name', currentForm.name);
       const body = new URLSearchParams();
       data.forEach((value, key) => body.append(key, value));
 
       try {
-        const res = await fetch(form.action, {
+        const res = await fetch(currentForm.action, {
           method: 'POST',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
           body: body.toString()
         });
         if (res.ok) {
-          form.reset();
+          currentForm.reset();
           msg.innerHTML = 'Thanks! Your free registration is in.';
           msg.className = 'msg ok';
         } else {
@@ -317,7 +353,7 @@
         msg.className = 'msg err';
       }
     }
-    document.getElementById('form').addEventListener('submit', handleSubmit);
+    form.addEventListener('submit', handleSubmit);
 
     function share(title) {
       const text = `Join me at "${title}" – free RSVP! 🎉`;
@@ -327,8 +363,7 @@
     }
     window.share = share;
 
-    applyFormMode('full');
-    setDateOptions(null);
+    renderFormFields(EVENTS[0]);
     render(EVENTS);
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
