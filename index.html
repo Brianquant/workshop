@@ -115,13 +115,13 @@
       { value: 'other', label: 'Other' }
     ];
     const FORM_TEMPLATE_UNIFIED = [
-      { type: 'text', name: 'first_name', label: 'Full name *', required: true, placeholder: 'e.g. Lea', width: 'half' },
+      { type: 'text', name: 'name', label: 'Full name *', required: true, placeholder: 'e.g. Lea', width: 'half' },
       { type: 'email', name: 'email', label: 'Email', placeholder: 'you@uni.de', width: 'half' },
       { type: 'select', name: 'age_range', label: 'Age range *', required: true, placeholderOption: 'Select your age range…', options: AGE_RANGE_OPTIONS, width: 'full' },
       { type: 'select', name: 'current_situation', label: 'Current situation *', required: true, placeholderOption: 'Choose…', options: COMMUNITY_PROFILE_OPTIONS, width: 'full' },
       { type: 'textarea', name: 'culture_wishlist', label: 'Any events from your culture (or others) you’d love to see here?', rows: 4, placeholder: 'Dance nights (Salsa, Line Dance…), community cooking, games, music or film nights', hint: 'Tell us everything – we’re using your ideas to bring more culture & exchange to the city. 🌍' },
       { type: 'checkbox', name: 'consent', label: 'I agree that my data may be used to contact me about this event and similar student events.', required: true },
-      { type: 'hidden', name: 'source_hash', value: event => event?.source_hash || event?.id || '' }
+      { type: 'hidden', name: 'event_id', value: event => event?.source_hash || event?.id || '' }
     ];
     const EXTRA_FIELD_SETS = {
       potluck: [
