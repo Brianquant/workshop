@@ -293,6 +293,10 @@ textarea {
     min-height: 70px;
 }
 
+select {
+    min-height: 44px;
+}
+
 form small {
     color: var(--muted);
 }
