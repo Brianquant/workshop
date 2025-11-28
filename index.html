@@ -100,13 +100,6 @@
         description: 'Imagine dishes from the Philippines, Uganda, Brazil & friends lining one long table. Bring a dish, taste a dozen more and get the full flavour tour once enough people are in. 🍲🌍'
       }
     ];
-    const AGE_RANGE_OPTIONS = [
-      { value: '16-20', label: '16–20' },
-      { value: '21-25', label: '21–25' },
-      { value: '26-30', label: '26–30' },
-      { value: '31-35', label: '31–35' },
-      { value: '36-plus', label: '36+' }
-    ];
     const COMMUNITY_PROFILE_OPTIONS = [
       { value: 'erasmus', label: 'Erasmus / exchange student' },
       { value: 'local', label: 'Local student' },
@@ -117,16 +110,16 @@
     const FORM_TEMPLATE_UNIFIED = [
       { type: 'text', name: 'name', label: 'Full name *', required: true, placeholder: 'e.g. Lea', width: 'half' },
       { type: 'email', name: 'email', label: 'Email', placeholder: 'you@uni.de', width: 'half' },
-      { type: 'select', name: 'age_range', label: 'Age range *', required: true, placeholderOption: 'Select your age range…', options: AGE_RANGE_OPTIONS, width: 'full' },
-      { type: 'select', name: 'current_situation', label: 'Current situation *', required: true, placeholderOption: 'Choose…', options: COMMUNITY_PROFILE_OPTIONS, width: 'full' },
-      { type: 'textarea', name: 'culture_wishlist', label: 'Any events from your culture (or others) you’d love to see here?', rows: 4, placeholder: 'Dance nights (Salsa, Line Dance…), community cooking, games, music or film nights', hint: 'Tell us everything – we’re using your ideas to bring more culture & exchange to the city. 🌍' },
+      { type: 'number', name: 'age', label: 'Age *', required: true, min: 16, max: 80, placeholder: 'e.g. 24', width: 'half' },
+      { type: 'select', name: 'current-situation', label: 'Current situation *', required: true, placeholderOption: 'Choose…', options: COMMUNITY_PROFILE_OPTIONS, width: 'full' },
+      { type: 'textarea', name: 'culture-wishlist', label: 'Any events from your culture (or others) you’d love to see here?', rows: 4, placeholder: 'Dance nights (Salsa, Line Dance…), community cooking, games, music or film nights', hint: 'Tell us everything – we’re using your ideas to bring more culture & exchange to the city. 🌍' },
       { type: 'checkbox', name: 'consent', label: 'I agree that my data may be used to contact me about this event and similar student events.', required: true },
-      { type: 'hidden', name: 'event_id', value: event => event?.source_hash || event?.id || '' }
+      { type: 'hidden', name: 'event-id', value: event => event?.source_hash || event?.id || '' }
     ];
     const EXTRA_FIELD_SETS = {
       potluck: [
-        { type: 'textarea', name: 'favorite_dishes', label: 'Which dishes from other cultures would you love to try?', placeholder: 'Philippines: Adobo, Uganda: Rolex, Brazil: Feijoada…' },
-        { type: 'textarea', name: 'bring_dish', label: 'What dish would you bring to the potluck?', placeholder: 'Tell us what you’d cook or bake', hint: 'We’ll email you the plan as soon as enough foodies have signed up.' }
+        { type: 'textarea', name: 'favorite-dishes', label: 'Which dishes from other cultures would you love to try?', placeholder: 'Philippines: Adobo, Uganda: Rolex, Brazil: Feijoada…' },
+        { type: 'textarea', name: 'bring-dish', label: 'What dish would you bring to the potluck?', placeholder: 'Tell us what you’d cook or bake', hint: 'We’ll email you the plan as soon as enough foodies have signed up.' }
       ]
     };
 
@@ -330,6 +323,7 @@
       const currentForm = e.target;
       if (!currentForm.reportValidity()) return;
       const data = new FormData(currentForm);
+      console.log("Data", data);
       if (!data.has('form-name') && currentForm.name) data.append('form-name', currentForm.name);
       const body = new URLSearchParams();
       data.forEach((value, key) => body.append(key, value));
