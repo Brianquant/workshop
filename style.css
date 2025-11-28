@@ -244,33 +244,6 @@ form .row {
     margin-bottom: 15px;
 }
 
-.form-fields {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 12px;
-}
-
-@media (min-width: 640px) {
-    .form-fields {
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    }
-}
-
-.form-fields .field.half {
-    grid-column: span 1;
-}
-
-.form-fields .field.full {
-    grid-column: 1 / -1;
-}
-
-.checkbox-option {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 14px;
-}
-
 label {
     font-size: 13px;
     color: var(--muted);

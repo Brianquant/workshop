@@ -37,15 +37,41 @@
     <form id="form" name="event-signup" class="modal-body" method="POST" data-netlify="true" netlify-honeypot="company" action="/">
       <!-- Netlify Forms: "event-signup" wird automatisch erfasst. -->
       <input type="hidden" name="event_title" id="event_title" />
-      <div id="formFields" class="form-fields"></div>
+      <div class="row">
+        <div class="field">
+          <label for="name">Name *</label>
+          <input required id="name" name="name" type="text" placeholder="Vor- & Nachname" />
+        </div>
+        <div class="field">
+          <label for="age">Alter *</label>
+          <input required id="age" name="age" type="number" inputmode="numeric" min="16" max="100" placeholder="z. B. 27" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label for="status">Beschäftigungsstatus *</label>
+          <select required id="status" name="employment_status">
+            <option value="">Bitte wählen…</option>
+            <option>Student:in</option>
+            <option>Angestellt</option>
+            <option>Selbstständig</option>
+            <option>Arbeitssuchend</option>
+            <option>Sonstiges</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="email">E-Mail (Bestätigung)</label>
+          <input id="email" name="email" type="email" placeholder="optional, für Updates" />
+        </div>
+      </div>
       <!-- Spam-Honeypot (Netlify) -->
       <input type="hidden" name="form-name" value="event-signup" />
       <input type="text" name="company" style="display:none" tabindex="-1" autocomplete="off" />
-      <p class="help">By sending the form you agree that we may use your data to organize these community events. We’ll email you the details (including any contributions) once the plan is set.</p>
+      <p class="help">Mit dem Absenden stimmst du der Verarbeitung deiner Daten zum Zweck der Event-Anmeldung zu. Es fallen keine Kosten an.</p>
       <div class="msg" id="msg"></div>
       <div class="modal-foot">
-        <button type="button" class="btn" onclick="closeModal()">Cancel</button>
-        <button type="submit" class="btn primary">Sign up for free</button>
+        <button type="button" class="btn" onclick="closeModal()">Abbrechen</button>
+        <button type="submit" class="btn primary">Kostenfrei anmelden</button>
       </div>
     </form>
   </dialog>
@@ -100,153 +126,11 @@
         description: 'Imagine dishes from the Philippines, Uganda, Brazil & friends lining one long table. Bring a dish, taste a dozen more and get the full flavour tour once enough people are in. 🍲🌍'
       }
     ];
-    const COMMUNITY_PROFILE_OPTIONS = [
-      { value: 'erasmus', label: 'Erasmus / exchange student' },
-      { value: 'local', label: 'Local student' },
-      { value: 'new', label: 'New in town, want to meet people' },
-      { value: 'working', label: 'Working here, want to meet people' },
-      { value: 'other', label: 'Other' }
-    ];
-    const FORM_TEMPLATE_UNIFIED = [
-      { type: 'text', name: 'name', label: 'Full name *', required: true, placeholder: 'e.g. Lea', width: 'half' },
-      { type: 'email', name: 'email', label: 'Email', placeholder: 'you@uni.de', width: 'half' },
-      { type: 'number', name: 'age', label: 'Age *', required: true, min: 16, max: 80, placeholder: 'e.g. 24', width: 'half' },
-      { type: 'select', name: 'current-situation', label: 'Current situation *', required: true, placeholderOption: 'Choose…', options: COMMUNITY_PROFILE_OPTIONS, width: 'full' },
-      { type: 'textarea', name: 'culture-wishlist', label: 'Any events from your culture (or others) you’d love to see here?', rows: 4, placeholder: 'Dance nights (Salsa, Line Dance…), community cooking, games, music or film nights', hint: 'Tell us everything – we’re using your ideas to bring more culture & exchange to the city. 🌍' },
-      { type: 'checkbox', name: 'consent', label: 'I agree that my data may be used to contact me about this event and similar student events.', required: true },
-      { type: 'hidden', name: 'event-id', value: event => event?.source_hash || event?.id || '' }
-    ];
-    const EXTRA_FIELD_SETS = {
-      potluck: [
-        { type: 'textarea', name: 'favorite-dishes', label: 'Which dishes from other cultures would you love to try?', placeholder: 'Philippines: Adobo, Uganda: Rolex, Brazil: Feijoada…' },
-        { type: 'textarea', name: 'bring-dish', label: 'What dish would you bring to the potluck?', placeholder: 'Tell us what you’d cook or bake', hint: 'We’ll email you the plan as soon as enough foodies have signed up.' }
-      ]
-    };
-
     const grid = document.getElementById('grid');
     const q = document.getElementById('q');
     const form = document.getElementById('form');
-    const formFields = document.getElementById('formFields');
     const dlg = document.getElementById('signup');
     let activeEventId = null;
-
-    function resolveOptions(opts, event) {
-      if (typeof opts === 'function') return opts(event) || [];
-      return opts || [];
-    }
-
-    function buildField(config, event) {
-      const wrapper = document.createElement('div');
-      const widthClass = config.width === 'half' ? 'half' : 'full';
-      wrapper.className = `field ${widthClass}`;
-
-      if (config.type === 'hidden') {
-        const input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = config.name;
-        input.value = typeof config.value === 'function' ? config.value(event) : (config.value || '');
-        wrapper.style.display = 'none';
-        wrapper.appendChild(input);
-        return wrapper;
-      }
-
-      const id = `${config.name}-${Math.random().toString(36).slice(2, 7)}`;
-      if (config.type === 'checkbox') {
-        const label = document.createElement('label');
-        const input = document.createElement('input');
-        input.type = 'checkbox';
-        input.id = id;
-        input.name = config.name;
-        if (config.required) input.required = true;
-        label.appendChild(input);
-        const text = document.createTextNode(` ${config.label}`);
-        label.appendChild(text);
-        wrapper.appendChild(label);
-        if (config.hint) {
-          const hint = document.createElement('small');
-          hint.textContent = config.hint;
-          wrapper.appendChild(hint);
-        }
-        return wrapper;
-      }
-
-      if (config.type === 'checkbox-group') {
-        const legend = document.createElement('p');
-        legend.textContent = config.label;
-        wrapper.appendChild(legend);
-        const options = resolveOptions(config.options, event);
-        options.forEach((opt, idx) => {
-          const optionLabel = document.createElement('label');
-          optionLabel.className = 'checkbox-option';
-          const checkbox = document.createElement('input');
-          checkbox.type = 'checkbox';
-          checkbox.name = config.name;
-          checkbox.value = opt.value;
-          if (config.required) checkbox.required = true;
-          optionLabel.appendChild(checkbox);
-          optionLabel.appendChild(document.createTextNode(` ${opt.label}`));
-          wrapper.appendChild(optionLabel);
-        });
-        if (config.hint) {
-          const hint = document.createElement('small');
-          hint.textContent = config.hint;
-          wrapper.appendChild(hint);
-        }
-        return wrapper;
-      }
-
-      const label = document.createElement('label');
-      label.setAttribute('for', id);
-      label.textContent = config.label;
-      wrapper.appendChild(label);
-
-      let input;
-      if (config.type === 'textarea') {
-        input = document.createElement('textarea');
-        input.rows = config.rows || 3;
-      } else if (config.type === 'select') {
-        input = document.createElement('select');
-        const placeholder = document.createElement('option');
-        placeholder.value = '';
-        placeholder.textContent = config.placeholderOption || 'Choose…';
-        placeholder.disabled = true;
-        placeholder.selected = true;
-        input.appendChild(placeholder);
-        resolveOptions(config.options, event).forEach(opt => {
-          const option = document.createElement('option');
-          option.value = opt.value;
-          option.textContent = opt.label;
-          input.appendChild(option);
-        });
-      } else {
-        input = document.createElement('input');
-        input.type = config.type || 'text';
-        if (config.min !== undefined) input.min = config.min;
-        if (config.max !== undefined) input.max = config.max;
-      }
-      input.id = id;
-      input.name = config.name;
-      if (config.required) input.required = true;
-      if (config.placeholder && config.type !== 'select') input.placeholder = config.placeholder;
-      wrapper.appendChild(input);
-
-      if (config.hint) {
-        const hint = document.createElement('small');
-        hint.textContent = config.hint;
-        wrapper.appendChild(hint);
-      }
-      return wrapper;
-    }
-
-    function renderFormFields(event) {
-      let fields = FORM_TEMPLATE_UNIFIED.slice();
-      (event?.extraQuestions || []).forEach(key => {
-        if (EXTRA_FIELD_SETS[key]) fields = fields.concat(EXTRA_FIELD_SETS[key]);
-      });
-      if (!fields.length) fields = FORM_TEMPLATE_UNIFIED;
-      formFields.innerHTML = '';
-      fields.forEach(field => formFields.appendChild(buildField(field, event)));
-    }
 
     function fmtDate(iso) {
       const d = new Date(iso + 'T00:00:00');
@@ -302,7 +186,6 @@
       const event = EVENTS.find(e => e.id === eventId);
       activeEventId = event ? event.id : null;
       form.reset();
-      renderFormFields(event);
       document.getElementById('event_title').value = event ? event.title : '';
       const msgEl = document.getElementById('msg');
       msgEl.className = 'msg';
@@ -323,7 +206,6 @@
       const currentForm = e.target;
       if (!currentForm.reportValidity()) return;
       const data = new FormData(currentForm);
-      console.log("Data", data);
       if (!data.has('form-name') && currentForm.name) data.append('form-name', currentForm.name);
       const body = new URLSearchParams();
       data.forEach((value, key) => body.append(key, value));
@@ -357,7 +239,6 @@
     }
     window.share = share;
 
-    renderFormFields(EVENTS[0]);
     render(EVENTS);
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
