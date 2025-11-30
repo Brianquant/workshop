@@ -22,7 +22,6 @@
       </div>
     </div>
   </header>
-
   <section class="notice">
     <p>Quick heads-up: we only light up an event when enough people confirmed. That keeps things cozy and no one ends up sipping solo. Drop your name, reserve a spot and we’ll email you the final date + details once the crew is ready. ✉️✨</p>
   </section>
@@ -40,38 +39,52 @@
       <div class="row">
         <div class="field">
           <label for="name">Name *</label>
-          <input required id="name" name="name" type="text" placeholder="Vor- & Nachname" />
+          <input required id="name" name="name" type="text" placeholder="Name" />
         </div>
         <div class="field">
-          <label for="age">Alter *</label>
-          <input required id="age" name="age" type="number" inputmode="numeric" min="16" max="100" placeholder="z. B. 27" />
+          <label for="age">Age *</label>
+          <input required id="age" name="age" type="number" inputmode="numeric" min="18" max="100" placeholder="z. B. 21" />
         </div>
       </div>
-      <div class="row">
-        <div class="field">
-          <label for="status">Beschäftigungsstatus *</label>
-          <select required id="status" name="employment_status">
-            <option value="">Bitte wählen…</option>
-            <option>Student:in</option>
-            <option>Angestellt</option>
-            <option>Selbstständig</option>
-            <option>Arbeitssuchend</option>
-            <option>Sonstiges</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="email">E-Mail (Bestätigung)</label>
-          <input id="email" name="email" type="email" placeholder="optional, für Updates" />
-        </div>
+      <div class="field">
+          <label for="email">E-Mail*</label>
+          <input id="email" name="email" type="email" placeholder="For Updates" />
+      </div>
+      <div class="field">
+          <label for="status">What best describes your current situation?*</label>
+          <select required id="status" name="situation_status">
+            <option value="">Select…</option>
+            <option>Local student (enrolled here)</option>
+            <option>Erasmus / exchange student</option>
+            <option>Trainee / in vocational training</option>
+            <option>Working (full-time / part-time)</option>
+            <option>Just moved here / figuring things out</option>
+            <option>Other</option>
+        </select>
+      </div>
+    <div class="field">
+          <label for="join_probability">How likely is it that you’d actually join this event?</label>
+          <select required id="join_probability" name="join_probability">
+            <option value="">Select…</option>
+            <option>Just curious for now</option>
+            <option>Maybe, depends on timing</option>
+            <option>Pretty likely</option>
+            <option>For sure!</option>
+        </select>
+      </div>
+     <div class="field">
+        <label for="culture_wishlist">Any events from your culture (or others) you’d love to see here?</label>
+        <textarea id="culture_wishlist" name="culture_wishlist" rows="4" placeholder="Dance nights (Salsa, Line Dance…), community cooking, games, music or film nights"></textarea>
+        <small>Tell us everything – we’re using your ideas to bring more culture & exchange to the city. 🌍</small>
       </div>
       <!-- Spam-Honeypot (Netlify) -->
       <input type="hidden" name="form-name" value="event-signup" />
       <input type="text" name="company" style="display:none" tabindex="-1" autocomplete="off" />
-      <p class="help">Mit dem Absenden stimmst du der Verarbeitung deiner Daten zum Zweck der Event-Anmeldung zu. Es fallen keine Kosten an.</p>
+      <p class="help">By sending the form you agree that we may use your data to organize these community events. It’s always free.</p>
       <div class="msg" id="msg"></div>
       <div class="modal-foot">
-        <button type="button" class="btn" onclick="closeModal()">Abbrechen</button>
-        <button type="submit" class="btn primary">Kostenfrei anmelden</button>
+        <button type="button" class="btn" onclick="closeModal()">Cancel</button>
+        <button type="submit" class="btn primary">Submit</button>
       </div>
     </form>
   </dialog>
