@@ -15,7 +15,7 @@
 
 body {
     margin: 0;
-    font: 16px/1.55 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+    font: clamp(17px, 1.9vw, 19px)/1.55 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
     color: var(--text);
     background: radial-gradient(1200px 800px at 80% -20%, rgba(124, 196, 255, .12), transparent 60%),
         radial-gradient(900px 600px at -10% 10%, rgba(155, 255, 181, .10), transparent 60%),
@@ -46,6 +46,7 @@ header {
     color: var(--muted);
     margin: 0 auto 14px;
     max-width: 720px;
+    font-size: clamp(16px, 2vw, 19px);
 }
 
 .hero .intro {
@@ -67,6 +68,38 @@ header {
     padding: 20px;
     color: var(--accent);
     text-align: center;
+    font-size: clamp(15px, 1.8vw, 18px);
+}
+
+.feedback-cta-container {
+    padding: 20px;
+}
+
+.feedback-cta {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 24px;
+    border: 1px solid #1b2230;
+    border-radius: var(--radius);
+    background: rgba(13, 18, 27, 0.85);
+    display: flex;
+    gap: 16px;
+    flex-direction: column;
+}
+
+.feedback-cta h2 {
+    margin: 0 0 6px;
+    font-size: clamp(22px, 5vw, 30px);
+}
+
+.feedback-cta p {
+    margin: 0;
+    color: var(--muted);
+    font-size: clamp(15px, 1.9vw, 18px);
+}
+
+.feedback-cta .btn {
+    align-self: flex-start;
 }
 
 .search {
@@ -93,7 +126,7 @@ header {
 .sections {
     max-width: 1100px;
     margin: 0 auto;
-    padding: 26px 20px 80px;
+    padding: 26px 20px 60px;
     display: flex;
     flex-direction: column;
     gap: 60px;
@@ -113,18 +146,19 @@ header {
 
 .section-head h2 {
     margin: 6px 0;
-    font-size: 24px;
+    font-size: clamp(22px, 5vw, 32px);
 }
 
 .section-head p {
     margin: 0;
     color: var(--muted);
+    font-size: clamp(15px, 1.9vw, 18px);
 }
 
 .section-tag {
     display: inline-flex;
     align-self: flex-start;
-    font-size: 12px;
+    font-size: clamp(12px, 1.6vw, 14px);
     text-transform: uppercase;
     letter-spacing: 1px;
     padding: 4px 10px;
@@ -161,17 +195,18 @@ header {
 
 .card h3 {
     margin: 2px 0 2px;
-    font-size: 18px;
+    font-size: clamp(20px, 3.8vw, 24px);
 }
 
 .card-desc {
     margin: 0;
     color: var(--muted);
+    font-size: clamp(15px, 2vw, 18px);
 }
 
 .meta {
     color: var(--muted);
-    font-size: 14px;
+    font-size: clamp(13px, 1.8vw, 16px);
     display: flex;
     gap: 8px;
     flex-wrap: wrap;
@@ -288,7 +323,7 @@ form .row {
 }
 
 label {
-    font-size: 13px;
+    font-size: clamp(13px, 1.5vw, 15px);
     color: var(--muted);
 }
 
@@ -302,6 +337,7 @@ textarea {
     border: 1px solid #1b2230;
     background: #0c111a;
     color: var(--text);
+    width: 100%;
 }
 
 textarea {
@@ -315,10 +351,11 @@ select {
 
 form small {
     color: var(--muted);
+    font-size: clamp(13px, 1.5vw, 15px);
 }
 
 .help {
-    font-size: 12px;
+    font-size: clamp(12px, 1.4vw, 14px);
     color: var(--muted);
 }
 
@@ -328,6 +365,7 @@ form small {
     border: 1px solid #1b2230;
     margin-top: 8px;
     display: none;
+    font-size: clamp(14px, 1.7vw, 16px);
 }
 
 .msg.ok {
@@ -346,7 +384,7 @@ form small {
 footer {
     color: var(--muted);
     text-align: center;
-    font-size: 13px;
+    font-size: clamp(13px, 1.6vw, 15px);
     padding: 30px 20px;
     border-top: 1px solid #1b2230;
 }

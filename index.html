@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="de">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -14,8 +14,6 @@
       <h1>Easy-going events 💬🍸 – grab your free spot</h1>
       <p>This is a little pilot project to connect people in the same city. Local students, Erasmus students, trainees and new arrivals. 🌍</p>
       <p>We’re testing small, relaxed events like cocktail nights, game evenings or culture hangouts where you can actually talk, laugh and meet people you might already walk past on campus, in town or at work. 🍹🎲</p>
-      <p>Pick an event, drop your <strong>first name</strong>, <strong>email</strong> and a few quick details so we can match Erasmus students, locals and internationals for the best vibes. 🤝</p>
-      <p class="intro">Let’s mash up cultures, mix groups and experience the city in its full, diverse potential together. ✨</p>
       <div class="controls">
         <input id="q" class="search" placeholder="Search: cocktails, networking, running…" />
         <button class="btn" id="reset">Reset</button>
@@ -25,6 +23,7 @@
   <section class="notice">
     <p>Quick heads-up: we only light up an event when enough people confirmed. That keeps things cozy and no one ends up sipping solo. Drop your name, reserve a spot and we’ll email you the final date + details once the crew is ready. ✉️✨</p>
   </section>
+
 
   <main class="sections">
     <section class="event-section" aria-labelledby="up-next-title">
@@ -45,13 +44,21 @@
       <div class="grid" id="grid-in-planning"></div>
     </section>
   </main>
-
+  <div class="feedback-cta-container">
+    <section class="feedback-cta">
+      <div>
+        <h2>Which cultural events are missing in Münster?</h2>
+        <p>Let us know which formats from your own (or another) culture you would love to see in the city. Thanks for your feedback. We’ll do our best to bring those ideas to life. 🌍</p>
+      </div>
+      <button class="btn primary" id="feedback-open">Share feedback 💡</button>
+    </section>
+  </div>
   <dialog id="signup">
     <div class="modal-head">
       <strong>Registration</strong>
       <button class="x" aria-label="Close" onclick="closeModal()">×</button>
     </div>
-    <form id="form" name="event-signup" class="modal-body" method="POST" data-netlify="true" netlify-honeypot="company" action="/">
+    <form id="form" name="event-signup" class="modal-body" method="POST" data-netlify="true" netlify-honeypot="company" action="/" data-success-msg="Thanks! Your free registration is in.">
       <!-- Netlify Forms: "event-signup" wird automatisch erfasst. -->
       <input type="hidden" name="event_title" id="event_title" />
       <div class="row">
@@ -61,16 +68,16 @@
         </div>
         <div class="field">
           <label for="age">Age *</label>
-          <input required id="age" name="age" type="number" inputmode="numeric" min="18" max="100" placeholder="z. B. 21" />
+          <input required id="age" name="age" type="number" inputmode="numeric" min="18" max="100" placeholder="e.g. 21" />
         </div>
       </div>
       <div class="field">
-          <label for="email">E-Mail*</label>
-          <input id="email" name="email" type="email" placeholder="For Updates" />
+        <label for="email">Email*</label>
+        <input id="email" name="email" type="email" placeholder="For updates" />
       </div>
       <div class="field">
-          <label for="status">What best describes your current situation?*</label>
-          <select required id="status" name="situation_status">
+        <label for="status">What best describes your current situation?*</label>
+        <select required id="status" name="situation_status">
             <option value="">Select…</option>
             <option>Local student (enrolled here)</option>
             <option>Erasmus / exchange student</option>
@@ -80,9 +87,9 @@
             <option>Other</option>
         </select>
       </div>
-    <div class="field">
-          <label for="join_probability">How likely is it that you’d actually join this event?</label>
-          <select required id="join_probability" name="join_probability">
+      <div class="field">
+        <label for="join_probability">How likely is it that you’d actually join this event?</label>
+        <select required id="join_probability" name="join_probability">
             <option value="">Select…</option>
             <option>Just curious for now</option>
             <option>Maybe, depends on timing</option>
@@ -90,7 +97,7 @@
             <option>For sure!</option>
         </select>
       </div>
-     <div class="field">
+      <div class="field">
         <label for="culture_wishlist">Any events from your culture (or others) you’d love to see here?</label>
         <textarea id="culture_wishlist" name="culture_wishlist" rows="4" placeholder="Dance nights (Salsa, Line Dance…), community cooking, games, music or film nights"></textarea>
         <small>Tell us everything – we’re using your ideas to bring more culture & exchange to the city. 🌍</small>
@@ -107,6 +114,34 @@
     </form>
   </dialog>
 
+  <dialog id="feedback">
+    <div class="modal-head">
+      <strong>Culture feedback</strong>
+      <button class="x" aria-label="Close" onclick="closeFeedback()">×</button>
+    </div>
+    <form id="feedback-form" name="culture-feedback" class="modal-body" method="POST" data-netlify="true" netlify-honeypot="feedback_company" action="/" data-success-msg="Thanks! We’ll reach out once we plan this format.">
+      <input type="hidden" name="form-name" value="culture-feedback" />
+      <div class="field">
+        <label for="feedback_name">Name *</label>
+        <input required id="feedback_name" name="name" type="text" placeholder="Name" />
+      </div>
+      <div class="field">
+        <label for="feedback_email">Email*</label>
+        <input required id="feedback_email" name="email" type="email" placeholder="For updates" />
+      </div>
+      <div class="field">
+        <label for="feedback_wishlist">Any events from your culture (or others) you’d love to see here?</label>
+        <textarea required id="feedback_wishlist" name="culture_wishlist" rows="4" placeholder="Dance nights, food pop-ups, concerts, film clubs…"></textarea>
+        <small>Thanks! We review every submission and try to launch the most requested formats as soon as possible.</small>
+      </div>
+      <input type="text" name="feedback_company" style="display:none" tabindex="-1" autocomplete="off" />
+      <div class="msg" id="feedback-msg"></div>
+      <div class="modal-foot">
+        <button type="button" class="btn" onclick="closeFeedback()">Cancel</button>
+        <button type="submit" class="btn primary">Submit</button>
+      </div>
+    </form>
+  </dialog>
   <footer>
     © <span id="year"></span> MeetUp · <a href="#" id="impressum">Impressum</a> · <a href="#" id="privacy">Privacy</a>
   </footer>
@@ -162,6 +197,8 @@
     const q = document.getElementById('q');
     const form = document.getElementById('form');
     const dlg = document.getElementById('signup');
+    const feedbackDlg = document.getElementById('feedback');
+    const feedbackForm = document.getElementById('feedback-form');
     let activeEventId = null;
 
     function fmtDate(iso) {
@@ -221,15 +258,18 @@
 
     document.getElementById('reset').addEventListener('click', () => { q.value = ''; render(EVENTS); });
     q.addEventListener('input', filter);
+    document.getElementById('feedback-open').addEventListener('click', () => openFeedback());
 
     function openModal(eventId) {
       const event = EVENTS.find(e => e.id === eventId);
       activeEventId = event ? event.id : null;
       form.reset();
       document.getElementById('event_title').value = event ? event.title : '';
-      const msgEl = document.getElementById('msg');
-      msgEl.className = 'msg';
-      msgEl.textContent = '';
+      const msgEl = form.querySelector('.msg');
+      if (msgEl) {
+        msgEl.className = 'msg';
+        msgEl.textContent = '';
+      }
       dlg.showModal();
     }
     function closeModal() {
@@ -239,17 +279,32 @@
     }
     window.closeModal = closeModal; window.openModal = openModal;
 
+    function openFeedback() {
+      feedbackForm.reset();
+      const msgEl = feedbackForm.querySelector('.msg');
+      if (msgEl) {
+        msgEl.className = 'msg';
+        msgEl.textContent = '';
+      }
+      feedbackDlg.showModal();
+    }
+    function closeFeedback() {
+      feedbackDlg.close();
+      feedbackForm.reset();
+    }
+    window.openFeedback = openFeedback; window.closeFeedback = closeFeedback;
+
     async function handleSubmit(e) {
       e.preventDefault();
-      const msg = document.getElementById('msg');
-
       const currentForm = e.target;
       if (!currentForm.reportValidity()) return;
+      const msg = currentForm.querySelector('.msg');
       const data = new FormData(currentForm);
       if (!data.has('form-name') && currentForm.name) data.append('form-name', currentForm.name);
       const body = new URLSearchParams();
       data.forEach((value, key) => body.append(key, value));
 
+      const successMsg = currentForm.dataset.successMsg || 'Thanks! Your free registration is in.';
       try {
         const res = await fetch(currentForm.action, {
           method: 'POST',
@@ -258,18 +313,25 @@
         });
         if (res.ok) {
           currentForm.reset();
-          msg.innerHTML = 'Thanks! Your free registration is in.';
-          msg.className = 'msg ok';
+          if (msg) {
+            msg.innerHTML = successMsg;
+            msg.className = 'msg ok';
+          }
         } else {
-          msg.textContent = 'Whoops – something went wrong. Please try again later.';
-          msg.className = 'msg err';
+          if (msg) {
+            msg.textContent = 'Whoops – something went wrong. Please try again later.';
+            msg.className = 'msg err';
+          }
         }
       } catch (err) {
-        msg.textContent = 'Offline? Please check your internet connection.';
-        msg.className = 'msg err';
+        if (msg) {
+          msg.textContent = 'Offline? Please check your internet connection.';
+          msg.className = 'msg err';
+        }
       }
     }
     form.addEventListener('submit', handleSubmit);
+    feedbackForm.addEventListener('submit', handleSubmit);
 
     function share(title) {
       const text = `Join me at "${title}" – free RSVP! 🎉`;
