@@ -26,7 +26,25 @@
     <p>Quick heads-up: we only light up an event when enough people confirmed. That keeps things cozy and no one ends up sipping solo. Drop your name, reserve a spot and we’ll email you the final date + details once the crew is ready. ✉️✨</p>
   </section>
 
-  <main class="grid" id="grid"></main>
+  <main class="sections">
+    <section class="event-section" aria-labelledby="up-next-title">
+      <div class="section-head">
+        <span class="section-tag">up next</span>
+        <h2 id="up-next-title">Up Next</h2>
+        <p>These events are starting in the next few weeks.</p>
+      </div>
+      <div class="grid" id="grid-up-next"></div>
+    </section>
+
+    <section class="event-section" aria-labelledby="in-planning-title">
+      <div class="section-head">
+        <span class="section-tag">In-Planning</span>
+        <h2 id="in-planning-title">In-Planning</h2>
+        <p>These events are still in planning. Sign up early to secure a spot.</p>
+      </div>
+      <div class="grid" id="grid-in-planning"></div>
+    </section>
+  </main>
 
   <dialog id="signup">
     <div class="modal-head">
@@ -106,7 +124,7 @@
         paid: true,
         formMode: 'simple',
         source_hash: 'tiki-101',
-        status: 'interest',
+        status: 'in-planning',
         description: 'We turn a cozy flatshare into a tiny tiki bar, shake up two easy cocktails and keep the circle small so everyone really connects – you just chip in a small amount on the spot. 🍍🥂'
       },
       {
@@ -120,7 +138,7 @@
         paid: false,
         formMode: 'full',
         source_hash: 'glw-201',
-        status: 'interest',
+        status: 'up-next',
         description: 'Join us for a chilled Glühwein evening by the Aasee. We bring pots, cookers, cups and the first batch of hot drinks. Bring your own mulled wine or punch, heat it up with the shared gear and pass it around while we warm our hands, swap drinks and meet new people by the water. 🔥🍷'
       },
       {
@@ -135,11 +153,12 @@
         formMode: 'simple',
         extraQuestions: ['potluck'],
         source_hash: 'pot-301',
-        status: 'interest',
+        status: 'in-planning',
         description: 'Imagine dishes from the Philippines, Uganda, Brazil & friends lining one long table. Bring a dish, taste a dozen more and get the full flavour tour once enough people are in. 🍲🌍'
       }
     ];
-    const grid = document.getElementById('grid');
+    const gridUpNext = document.getElementById('grid-up-next');
+    const gridInPlanning = document.getElementById('grid-in-planning');
     const q = document.getElementById('q');
     const form = document.getElementById('form');
     const dlg = document.getElementById('signup');
@@ -150,16 +169,17 @@
       return d.toLocaleDateString('en-GB', { weekday: 'short', day: '2-digit', month: 'short' });
     }
 
-    function render(list) {
-      grid.innerHTML = list.map(e => {
-        let statusClass = 'upcoming';
-        let statusLabel = 'Upcoming';
-        if (e.status === 'planning') {
-          statusClass = 'planning';
-          statusLabel = 'In planning';
-        } else if (e.status === 'interest') {
-          statusClass = 'interest';
-          statusLabel = 'Interest check';
+    function renderSection(target, list) {
+      if (!list.length) {
+        target.innerHTML = `<p class="empty">No events match your search.</p>`;
+        return;
+      }
+      target.innerHTML = list.map(e => {
+        let statusClass = 'up-next';
+        let statusLabel = 'up next';
+        if (e.status === 'in-planning') {
+          statusClass = 'in-planning';
+          statusLabel = 'In-Planning';
         }
         return `
         <article class="card" data-id="${e.id}">
@@ -179,6 +199,13 @@
         </article>
       `;
       }).join('');
+    }
+
+    function render(list) {
+      const upNext = list.filter(e => e.status === 'up-next');
+      const planning = list.filter(e => e.status === 'in-planning');
+      renderSection(gridUpNext, upNext);
+      renderSection(gridInPlanning, planning);
     }
 
     function filter() {
