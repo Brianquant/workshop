@@ -1,0 +1,6 @@
+# Root redirect mit Language Detection
+/  /de/  302  Language=de
+/  /en/  302
+
+# 404 Fallback
+/* /en/ 404
