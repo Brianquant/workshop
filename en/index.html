@@ -9,12 +9,19 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/style.css" />
+  
+  <!-- Alternate language versions -->
+  <link rel="alternate" hreflang="de" href="https://yoursite.com/de/" />
+  <link rel="alternate" hreflang="en" href="https://yoursite.com/en/" />
+  <link rel="alternate" hreflang="x-default" href="https://yoursite.com/en/" />
 </head>
 <body>
-<div class="language-switch">
-  <span class="lang-btn active">EN</span>
-  <a href="/de/" class="lang-btn">DE</a>
-</div>
+  <!-- Language Switcher -->
+  <div class="language-switch">
+    <span class="lang-btn active">EN</span>
+    <a href="/de/" class="lang-btn">DE</a>
+  </div>
+
   <header class="hero" id="hero">
     <div class="container hero-content">
       <div class="hero-text">
@@ -31,14 +38,14 @@
             <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M10 3v3m12-3v3M5 11h22M7 6h18a2 2 0 0 1 2 2v18a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2zm3 8h4v4h-4v-4zm8 0h4v4h-4v-4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
           <h4>When</h4>
-          <p>Friday, May 24 · 7:00 PM</p>
+          <p>Saturday, January 24 · 3:00 PM</p>
         </article>
         <article class="detail-card">
           <div class="icon">
             <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3c5.5 0 10 4.4 10 9.9 0 7.2-7.9 14.5-9.5 15.9a1 1 0 0 1-1.1 0C13.9 27.4 6 20.1 6 12.9 6 7.4 10.5 3 16 3zm0 7a3 3 0 1 0 0 6 3 3 0 0 0 0-6z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
           <h4>Where</h4>
-          <p>Common Room, Student Dorm<br />Gartenstraße 12, 48147 Münster</p>
+          <p>Common Room, Student Dorm<br />Steinfurterstr 73, 48149 Münster</p>
         </article>
         <article class="detail-card">
           <div class="icon">
@@ -54,53 +61,70 @@
       </div>
     </div>
   </header>
-  
-  <section class="host-how" id="host">
-    <div class="container host-how-grid">
-        <div class="how-copy" id="ablauf">
-            <p class="eyebrow">How It Works</p>
-            <h3>It's Simple</h3>
-            <ol class="steps compact">
-              <li>
-                <h4>Sign Up</h4>
-                <p>Fill out the form—only the first 12 make it onto the guest list.</p>
-              </li>
-              <li>
-                <h4>Confirmation &amp; Details</h4>
-                <p>You'll get an email with the address, what to bring, and all the info you need.</p>
-              </li>
-              <li>
-                <h4>Join the WhatsApp Group</h4>
-                <p>Connect with others before the event, ask about ingredients, and enjoy the day!</p>
-              </li>
-            </ol>
-        </div>
-    </div>
+  <section class="how-section" id="how">
     <div class="container">
-      <div class="host-grid">
-        <div class="host-card bring-card">
-          <h4>What to Bring</h4>
-          <p>Surprise us with your signature dish or a classic from your home country. Let us know if there are any allergies we should be aware of.</p>
+      <p class="eyebrow">How It Works</p>
+      <h3>Join in 3 Simple Steps</h3>
+      <div class="how-cards-grid">
+        <article class="how-card">
+          <h4>Sign Up</h4>
+          <p>First 12 join the first event, everyone else joins the next!</p>
+        </article>
+        <article class="how-card">
+          <h4>Confirmation</h4>
+          <p>Email with confirmation, your event date, and link to the WhatsApp community.</p>
+        </article>
+        <article class="how-card">
+          <h4>Community</h4>
+          <p>Connect in your event WhatsApp group and get news about upcoming events in the channel.</p>
+        </article>
+      </div>
+      <div class="info-box system-explanation">
+        <h4>💡 How the group system works</h4>
+        <div class="system-detail">
+          <strong>Event Groups (Temporary):</strong>
+          <ul>
+            <li>Each event has its own WhatsApp group (max. 12 people)</li>
+            <li>Coordinate here: Who brings what? Allergies? Questions?</li>
+            <li>After the event, the group dissolves. No spam, no dead chats</li>
+          </ul>
         </div>
-        <div class="host-copy">
-          <p class="eyebrow">About the Host</p>
-          <h3>Who's Organizing This?</h3>
-          <p>Hey! I'm Josh and I live here in the dorm. I want to create more of a community vibe here and thought: what brings people together better than good food? 🍜 Let's hang out, meet new faces, and just have a great time!</p>
+        <div class="system-detail">
+          <strong>News Channel (Permanent):</strong>
+          <ul>
+            <li>Updates about all upcoming events</li>
+            <li>Clean, relevant, no distractions</li>
+          </ul>
         </div>
       </div>
     </div>
   </section>
-
   <section class="form-section" id="anmeldung">
-    <div class="container form-wrapper">
+    <div class="container">
       <div class="section-heading">
         <p class="eyebrow">Save Your Spot</p>
         <h3>Secure Your Place!</h3>
-        <p class="form-subcopy">We're keeping it cozy with just 12 people, so it stays personal and fun. Let us know what you're bringing—we'll send you all the details.</p>
-        <p class="form-subcopy">We're planning for 12 spots for this first event. If there's more demand, we'll organize more potlucks and keep you posted via email &amp; WhatsApp about upcoming dates.</p>
       </div>
-      <form class="form-card" name="interest-form" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-        <input type="hidden" name="form-name" value="interest-form" />
+      
+      <div class="form-grid">
+        <!-- Left Column: Host + What to Bring -->
+        <div class="form-sidebar">
+        <div class="host-card">
+            <h4>Who's Organizing This?</h4>
+            <p>Hey! I'm Brian and I want to better connect people in Münster. We constantly cross paths but never actually meet. Yet we have so much to share. Food, stories, traditions! My friend Josh lives here in the dorm and is helping me make this happen. This potluck is the start: small events, real connections, cultural exchange. Let's turn random encounters into friendships! 🍜</p>
+            <h4>Need to cancel for personal reasons?</h4>
+            <p>No worries! Just let us know via email or WhatsApp. We'll happily reschedule you for a date that works better!</p>
+          </div>
+          <div class="bring-card">
+            <h4>What to Bring?</h4>
+            <p>Surprise us with your signature dish or a classic from your home country.</p>
+          </div>
+        </div>
+        
+        <!-- Right Column: Form -->
+        <form class="form-card" name="interest-form-en" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/en/thank-you">
+        <input type="hidden" name="form-name" value="interest-form-en" />
+        <input type="hidden" name="submission-time" id="submission-time" />
         <p class="visually-hidden">
           <label>Please leave empty<input type="text" name="bot-field" /></label>
         </p>
@@ -116,16 +140,13 @@
           <label for="email">Email *</label>
           <input id="email" name="email" type="email" placeholder="mail@example.com" required />
         </div>
-        <div class="field">
-          <label for="allergies">Allergies or Dietary Notes</label>
-          <textarea id="allergies" name="allergies" rows="3" placeholder="Anything we should know about your food preferences"></textarea>
-        </div>
         <div class="checkbox-field">
           <input id="privacy" name="privacy" type="checkbox" required />
-          <label for="privacy">I accept the <a href="privacy.html">privacy policy</a>. *</label>
+          <label for="privacy">I accept the <a href="#">privacy policy</a>. *</label>
         </div>
         <button class="btn primary full" type="submit">Sign Up</button>
       </form>
+      </div>
     </div>
   </section>
 
@@ -133,14 +154,16 @@
     <div class="container footer-content">
       <p>&copy; <span id="year"></span> Potluck Community</p>
       <nav>
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="impressum.html">Imprint</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Imprint</a>
       </nav>
     </div>
   </footer>
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+    // Set submission time on page load
+    document.getElementById('submission-time').value = new Date().toISOString();
   </script>
 </body>
 </html>
