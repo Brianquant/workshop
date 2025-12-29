@@ -357,6 +357,21 @@ textarea:focus {
   margin-top: 16px;
 }
 
+.form-status {
+  margin-top: 16px;
+  min-height: 1.2em;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+.form-status.success {
+  color: #1e7b33;
+}
+
+.form-status.error {
+  color: #c62828;
+}
+
 .visually-hidden {
   position: absolute;
   left: -9999px;

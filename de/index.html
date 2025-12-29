@@ -125,29 +125,30 @@
         </div>
         
         <!-- Rechte Spalte: Formular -->
-        <form class="form-card" name="interest-form-de" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/de/danke">
+        <form class="form-card" name="interest-form-de" method="POST" data-netlify="true" netlify-honeypot="bot-field" data-sending-message="Deine Anfrage wird gesendet..." data-success-message="Danke! Wir melden uns bald bei dir." data-error-message="Es gab ein Problem. Bitte versuch es erneut oder schreib uns direkt.">
         <input type="hidden" name="form-name" value="interest-form-de" />
-        <input type="hidden" name="submission-time" id="submission-time" />
+        <input type="hidden" name="submission-time" />
         <p class="visually-hidden">
           <label>Bitte leer lassen<input type="text" name="bot-field" /></label>
         </p>
         <div class="field">
-          <label for="full-name">Vorname &amp; Nachname *</label>
-          <input id="full-name" name="full-name" type="text" placeholder="z. B. Hannah Müller" required />
+          <label for="full-name-de">Vorname &amp; Nachname *</label>
+          <input id="full-name-de" name="full-name" type="text" placeholder="z. B. Hannah Müller" autocomplete="name" inputmode="text" minlength="2" maxlength="80" pattern=".{2,80}" title="Bitte gib mindestens 2 Zeichen ein." required />
         </div>
         <div class="field">
-          <label for="age">Alter *</label>
-          <input id="age" name="age" type="number" min="16" max="99" placeholder="20" required />
+          <label for="age-de">Alter *</label>
+          <input id="age-de" name="age" type="number" min="16" max="99" placeholder="20" inputmode="numeric" required />
         </div>
         <div class="field">
-          <label for="email">E-Mail *</label>
-          <input id="email" name="email" type="email" placeholder="mail@example.com" required />
+          <label for="email-de">E-Mail *</label>
+          <input id="email-de" name="email" type="email" placeholder="mail@example.com" autocomplete="email" inputmode="email" required />
         </div>
         <div class="checkbox-field">
-          <input id="privacy" name="privacy" type="checkbox" required />
-          <label for="privacy">Ich akzeptiere die <a href="#">Datenschutzerklärung</a>. *</label>
+          <input id="privacy-de" name="privacy" type="checkbox" required />
+          <label for="privacy-de">Ich akzeptiere die <a href="#">Datenschutzerklärung</a>. *</label>
         </div>
         <button class="btn primary full" type="submit">Anmelden</button>
+        <p class="form-status" role="status" aria-live="polite"></p>
       </form>
       </div>
     </div>
@@ -165,8 +166,60 @@
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
-    // Set submission time on page load
-    document.getElementById('submission-time').value = new Date().toISOString();
+
+    const forms = document.querySelectorAll('form[data-netlify="true"]');
+    forms.forEach((form) => {
+      const statusEl = form.querySelector('.form-status');
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return;
+        }
+
+        const sendingMessage = form.dataset.sendingMessage || 'Wird gesendet...';
+        const successMessage = form.dataset.successMessage || 'Danke für deine Anmeldung!';
+        const errorMessage = form.dataset.errorMessage || 'Senden fehlgeschlagen. Bitte erneut versuchen.';
+
+        if (statusEl) {
+          statusEl.textContent = sendingMessage;
+          statusEl.classList.remove('success', 'error');
+        }
+
+        const submissionField = form.querySelector('input[name="submission-time"]');
+        if (submissionField) {
+          submissionField.value = new Date().toISOString();
+        }
+
+        const formData = new FormData(form);
+        const endpoint = form.getAttribute('action') || window.location.pathname;
+
+        try {
+          const response = await fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams(formData).toString(),
+          });
+
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+
+          form.reset();
+          if (statusEl) {
+            statusEl.textContent = successMessage;
+            statusEl.classList.add('success');
+          }
+        } catch (error) {
+          console.error(error);
+          if (statusEl) {
+            statusEl.textContent = errorMessage;
+            statusEl.classList.add('error');
+          }
+        }
+      });
+    });
   </script>
 </body>
 </html>
