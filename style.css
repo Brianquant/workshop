@@ -1165,6 +1165,16 @@ footer a {
   border-width: 0;
 }
 
+.thank-you-body-wrapper footer {
+  position: absolute;
+  width: 100vw;
+  bottom: 0;
+}
+
+.legal-page .container {
+  padding-top: 20px;
+}
+
 /* ============================================
    RESPONSIVE ANPASSUNGEN
    ============================================ */
