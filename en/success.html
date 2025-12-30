@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Thanks – POTLUCK: Bring & Share</title>
+  <meta name="description" content="Thanks for signing up for the dorm potluck. We'll be in touch soon." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <div class="language-switch">
+    <span class="lang-btn active">EN</span>
+    <a class="lang-btn" href="/de/success.html">DE</a>
+  </div>
+
+  <main class="thank-you-wrapper">
+    <section class="hero thank-you">
+      <div class="container hero-content">
+        <div class="hero-text">
+          <p class="eyebrow">POTLUCK: Bring &amp; Share</p>
+          <h1>Thanks for signing up!</h1>
+          <p class="intro">
+            We received your submission and will email you with all event details, your WhatsApp invite, and the final
+            date/time once the list is confirmed.
+          </p>
+          <div class="hero-actions">
+            <a class="btn primary" href="/en/">Back to the event page</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-content">
+      <p>&copy; <span id="year"></span> Potluck Community</p>
+      <nav>
+        <a href="/privacy.html">Privacy Policy</a>
+        <a href="/impressum.html">Imprint</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
