@@ -164,6 +164,7 @@
     document.getElementById('year').textContent = new Date().getFullYear();
 
     const forms = document.querySelectorAll('form[data-netlify="true"]');
+    console.log(forms);
     forms.forEach((form) => {
       const statusEl = form.querySelector('.form-status');
       form.addEventListener('submit', async (event) => {
