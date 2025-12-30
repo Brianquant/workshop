@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>POTLUCK: Bring & Share – Wohnheim-Event in Münster</title>
   <meta name="description" content="Wohnheim-Potluck in Münster – sichere dir einen der 12 Plätze und lerne neue Leute kennen." />
+  <meta name="version" content="1.1" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
@@ -194,7 +195,7 @@
 
         const formData = new FormData(form);
         const endpoint = form.getAttribute('action') || window.location.pathname;
-
+        console.log("Endpoint", endpoint);
         try {
           const response = await fetch(endpoint, {
             method: 'POST',
