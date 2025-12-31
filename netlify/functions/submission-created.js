@@ -1,14 +1,14 @@
-const { getStore } = require("@netlify/blobs");
-const sgMail = require('@sendgrid/mail');
+import { getStore } from "@netlify/blobs";
+import { setApiKey, send } from '@sendgrid/mail';
 
 // SendGrid Setup
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+setApiKey(process.env.SENDGRID_API_KEY);
 
 /**
  * Diese Function wird AUTOMATISCH von Netlify getriggert
  * bei jedem Form-Submit (wegen des Dateinamens "submission-created")
  */
-exports.handler = async (event, context) => {
+export async function handler(event, context) {
   console.log('=== Form Submission Received ===');
   
   try {
@@ -75,7 +75,7 @@ exports.handler = async (event, context) => {
       }
     };
     
-    await sgMail.send(msg);
+    await send(msg);
     console.log(`✅ Email sent successfully to ${email}`);
     
     // 7. Return success
@@ -106,7 +106,7 @@ exports.handler = async (event, context) => {
       })
     };
   }
-};
+}
 
 /**
  * Get correct SendGrid Template ID based on language and batch

@@ -1,4 +1,4 @@
-const { getStore } = require("@netlify/blobs");
+import { getStore } from "@netlify/blobs";
 
 /**
  * Setzt den Submission-Counter auf 0 zurück
@@ -7,7 +7,7 @@ const { getStore } = require("@netlify/blobs");
  * WICHTIG: Aus Security-Gründen sollte diese Function nur temporär existieren
  * oder mit einem Secret-Key geschützt werden!
  */
-exports.handler = async (event, context) => {
+export async function handler(event, context) {
   
   // Optional: Security Check (empfohlen!)
   const adminSecret = process.env.ADMIN_SECRET; // z.B. in Netlify Env Vars setzen
@@ -57,4 +57,4 @@ exports.handler = async (event, context) => {
       })
     };
   }
-};
+}

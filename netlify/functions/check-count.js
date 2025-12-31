@@ -1,10 +1,10 @@
-const { getStore } = require("@netlify/blobs");
+import { getStore } from "@netlify/blobs";
 
 /**
  * Gibt den aktuellen Submission-Counter zurück
  * Aufruf: GET https://potluck-ms.vibezone.space/.netlify/functions/check-count
  */
-exports.handler = async (event, context) => {
+export async function handler(event, context) {
   try {
     const store = getStore("potluck-submissions");
     
@@ -59,4 +59,4 @@ exports.handler = async (event, context) => {
       })
     };
   }
-};
+}
