@@ -34,12 +34,18 @@ exports.handler = async function(event, context) {
     const { payload } = JSON.parse(event.body);
     const formData = payload.data;
 
+    // Debug logging
+    console.log('Form Data:', JSON.stringify(formData, null, 2));
+
     const name = formData['full-name'];
     const email = formData.email;
-    const formName = formData['form-name']; // interest-form-de oder interest-form-en
+    const formName = payload.form_name; // Netlify uses payload.form_name, not formData['form-name']
+
+    console.log('Form name from payload:', formName);
 
     // Validate form name
     if (!formName || (!formName.includes('de') && !formName.includes('en'))) {
+      console.error('Invalid or missing form name:', formName);
       throw new Error('Invalid form name');
     }
 
