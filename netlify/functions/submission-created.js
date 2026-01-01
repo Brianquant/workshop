@@ -4,8 +4,8 @@ import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
 // Get current directory (needed for ES modules)
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const currentFilename = fileURLToPath(import.meta.url);
+const currentDirname = dirname(currentFilename);
 
 // SendGrid Setup
 setApiKey(process.env.SENDGRID_API_KEY);
@@ -14,7 +14,7 @@ setApiKey(process.env.SENDGRID_API_KEY);
  * Load and prepare email template
  */
 function getEmailTemplate(language, variables) {
-  const templatePath = join(__dirname, 'email-templates', `confirmation-${language}.html`);
+  const templatePath = join(currentDirname, 'email-templates', `confirmation-${language}.html`);
   let template = readFileSync(templatePath, 'utf-8');
 
   // Replace variables: {{{name}}} -> actual name
