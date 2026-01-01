@@ -1,8 +1,30 @@
-import { getStore } from "@netlify/blobs";
 import { setApiKey, send } from '@sendgrid/mail';
+import { readFileSync } from 'fs';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+
+// Get current directory (needed for ES modules)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // SendGrid Setup
 setApiKey(process.env.SENDGRID_API_KEY);
+
+/**
+ * Load and prepare email template
+ */
+function getEmailTemplate(language, variables) {
+  const templatePath = join(__dirname, 'email-templates', `confirmation-${language}.html`);
+  let template = readFileSync(templatePath, 'utf-8');
+
+  // Replace variables: {{{name}}} -> actual name
+  Object.keys(variables).forEach(key => {
+    const placeholder = `{{{${key}}}}`;
+    template = template.replace(new RegExp(placeholder, 'g'), variables[key]);
+  });
+
+  return template;
+}
 
 /**
  * Diese Function wird AUTOMATISCH von Netlify getriggert
@@ -10,115 +32,73 @@ setApiKey(process.env.SENDGRID_API_KEY);
  */
 export async function handler(event, context) {
   console.log('=== Form Submission Received ===');
-  
+
   try {
     // 1. Parse Form Data
     const { payload } = JSON.parse(event.body);
     const formData = payload.data;
-    
+
     const name = formData['full-name'];
     const email = formData.email;
-    const age = formData.age;
-    const allergies = formData.allergies || 'Keine angegeben';
     const formName = formData['form-name']; // interest-form-de oder interest-form-en
+
+    // Validate form name
+    if (!formName || (!formName.includes('de') && !formName.includes('en'))) {
+      throw new Error('Invalid form name');
+    }
+
     const language = formName.includes('de') ? 'de' : 'en';
-    
+
     console.log(`📝 Submission from: ${name} (${email}) - Language: ${language}`);
-    
-    // 2. Get Counter from Netlify Blobs
-    const store = getStore("potluck-submissions");
-    let count = parseInt(await store.get("total-count") || "0");
-    count++;
-    
-    console.log(`📊 Total submissions now: ${count}`);
-    
-    // 3. Save updated counter
-    await store.set("total-count", count.toString());
-    
-    // 4. Save submission data (für Backup/Referenz)
-    const submissionData = {
-      count,
-      name,
-      email,
-      age,
-      allergies,
-      language,
-      timestamp: new Date().toISOString(),
-      batch: count <= 12 ? 1 : Math.ceil((count - 12) / 12) + 1
-    };
-    
-    await store.set(`submission-${count}`, JSON.stringify(submissionData));
-    console.log(`💾 Saved submission data for #${count}`);
-    
-    // 5. Determine which email template to send
-    const isFirstBatch = count <= 12;
-    const templateId = getTemplateId(language, isFirstBatch);
-    const whatsappLink = isFirstBatch 
-      ? process.env.WHATSAPP_EVENT_LINK 
-      : process.env.WHATSAPP_NEWS_LINK;
-    
-    console.log(`📧 Sending ${isFirstBatch ? 'FIRST EVENT' : 'NEXT EVENT'} template (${language})`);
-    console.log(`   Template ID: ${templateId}`);
-    
-    // 6. Send Email via SendGrid
+
+    // 2. Load HTML template from file
+    const htmlContent = getEmailTemplate(language, { name });
+
+    // 3. Define subject based on language
+    const subject = language === 'de'
+      ? 'Deine Anmeldung für POTLUCK: Bring & Share'
+      : 'Your Registration for POTLUCK: Bring & Share';
+
+    console.log(`📧 Sending confirmation email (${language})`);
+
+    // 4. Send Email via SendGrid (with HTML content, not templateId)
     const msg = {
       to: email,
       from: {
         email: process.env.FROM_EMAIL,
         name: process.env.FROM_NAME
       },
-      templateId: templateId,
-      dynamicTemplateData: {
-        name: name,
-        whatsapp_link: isFirstBatch ? whatsappLink : null,
-        whatsapp_news_link: !isFirstBatch ? whatsappLink : null
-      }
+      subject: subject,
+      html: htmlContent
     };
-    
+
     await send(msg);
     console.log(`✅ Email sent successfully to ${email}`);
-    
-    // 7. Return success
+
+    // 5. Return success
     return {
       statusCode: 200,
-      body: JSON.stringify({ 
+      body: JSON.stringify({
         success: true,
-        submissionNumber: count,
-        batch: isFirstBatch ? 1 : Math.ceil((count - 12) / 12) + 1,
-        templateUsed: templateId
+        language: language
       })
     };
-    
+
   } catch (error) {
     console.error('❌ Error processing submission:', error);
-    
+
     // Detailed error logging
     if (error.response) {
       console.error('SendGrid Error Response:', error.response.body);
     }
-    
+
     return {
       statusCode: 500,
-      body: JSON.stringify({ 
-        success: false, 
+      body: JSON.stringify({
+        success: false,
         error: error.message,
         details: error.response ? error.response.body : null
       })
     };
-  }
-}
-
-/**
- * Get correct SendGrid Template ID based on language and batch
- */
-function getTemplateId(language, isFirstBatch) {
-  if (language === 'de') {
-    return isFirstBatch 
-      ? process.env.SENDGRID_TEMPLATE_FIRST_DE 
-      : process.env.SENDGRID_TEMPLATE_NEXT_DE;
-  } else {
-    return isFirstBatch 
-      ? process.env.SENDGRID_TEMPLATE_FIRST_EN 
-      : process.env.SENDGRID_TEMPLATE_NEXT_EN;
   }
 }
