@@ -1,9 +1,9 @@
-import { setApiKey, send } from '@sendgrid/mail';
-import { readFileSync } from 'fs';
-import { join } from 'path';
+const sgMail = require('@sendgrid/mail');
+const { readFileSync } = require('fs');
+const { join } = require('path');
 
 // SendGrid Setup
-setApiKey(process.env.SENDGRID_API_KEY);
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 /**
  * Load and prepare email template
@@ -26,7 +26,7 @@ function getEmailTemplate(language, variables) {
  * Diese Function wird AUTOMATISCH von Netlify getriggert
  * bei jedem Form-Submit (wegen des Dateinamens "submission-created")
  */
-export async function handler(event, context) {
+exports.handler = async function(event, context) {
   console.log('=== Form Submission Received ===');
 
   try {
@@ -68,7 +68,7 @@ export async function handler(event, context) {
       html: htmlContent
     };
 
-    await send(msg);
+    await sgMail.send(msg);
     console.log(`✅ Email sent successfully to ${email}`);
 
     // 5. Return success
@@ -97,4 +97,4 @@ export async function handler(event, context) {
       })
     };
   }
-}
+};
