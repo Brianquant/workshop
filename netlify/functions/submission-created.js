@@ -185,13 +185,13 @@ exports.handler = async function(event, context) {
 
     console.log('Form name from payload:', formName);
 
-    // Validate form name
-    if (!formName || (!formName.includes('de') && !formName.includes('en'))) {
+    // Validate form name and detect language
+    if (!formName || (!formName.endsWith('-de') && !formName.endsWith('-en'))) {
       console.error('Invalid or missing form name:', formName);
       throw new Error('Invalid form name');
     }
 
-    const language = formName.includes('de') ? 'de' : 'en';
+    const language = formName.endsWith('-de') ? 'de' : 'en';
 
     console.log(`📝 Submission from: ${name} (${email}) - Language: ${language}`);
 
