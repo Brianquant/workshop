@@ -120,6 +120,53 @@ function getEmailTemplate(language, variables) {
 }
 
 /**
+ * Generate plain text version of the email
+ */
+function generatePlainTextVersion(language, name) {
+  if (language === 'de') {
+    return `Anmeldung erhalten!
+
+Hey ${name}!
+
+Danke für deine Anmeldung zum Potluck! 🍜
+
+Wir bearbeiten gerade deine Anfrage und melden uns in den nächsten Tagen mit allen Details bei dir.
+
+📧 Finale Infos + WhatsApp-Gruppen-Link folgen bald!
+
+Bis dahin: Freu dich auf gutes Essen, tolle Gespräche und neue Bekanntschaften! 🎉
+
+Liebe Grüße,
+Euer Host Brian
+
+---
+Potluck Münster
+vibezone.space
+operation@vibezone.space`;
+  } else {
+    return `Registration received!
+
+Hey ${name}!
+
+Thanks for signing up for the potluck! 🍜
+
+We're processing your registration and will get back to you in the next few days with all the details.
+
+📧 Final info + WhatsApp group link coming soon!
+
+Until then: Get excited for great food, interesting conversations, and new connections! 🎉
+
+Best regards,
+Your Host Brian
+
+---
+Potluck Münster
+vibezone.space
+operation@vibezone.space`;
+  }
+}
+
+/**
  * Diese Function wird AUTOMATISCH von Netlify getriggert
  * bei jedem Form-Submit (wegen des Dateinamens "submission-created")
  */
