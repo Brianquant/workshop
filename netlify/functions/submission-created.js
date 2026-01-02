@@ -8,160 +8,98 @@ const TEMPLATES = {
   de: `<!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Deine Anmeldung für POTLUCK</title>
+  <title>Anmeldung erhalten!</title>
 </head>
-<body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #f4f4f4;">
-  <table role="presentation" style="width: 100%; border-collapse: collapse;">
-    <tr>
-      <td align="center" style="padding: 40px 0;">
-        <table role="presentation" style="width: 600px; max-width: 100%; border-collapse: collapse; background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-          <tr>
-            <td style="padding: 40px 40px 30px 40px; text-align: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 8px 8px 0 0;">
-              <h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: 700;">🎉 Anmeldung bestätigt!</h1>
-            </td>
-          </tr>
-          <tr>
-            <td style="padding: 40px;">
-              <p style="margin: 0 0 20px 0; font-size: 16px; line-height: 1.6; color: #333333;">
-                Hallo <strong>{{{name}}}</strong>,
-              </p>
-              <p style="margin: 0 0 20px 0; font-size: 16px; line-height: 1.6; color: #333333;">
-                vielen Dank für deine Anmeldung zu <strong>POTLUCK: Bring & Share</strong>! 🥘
-              </p>
-              <p style="margin: 0 0 20px 0; font-size: 16px; line-height: 1.6; color: #333333;">
-                Wir freuen uns sehr, dass du dabei bist! Hier sind die wichtigsten Details:
-              </p>
-              <table role="presentation" style="width: 100%; border-collapse: collapse; margin: 30px 0; background-color: #f8f9fa; border-radius: 6px; padding: 20px;">
-                <tr>
-                  <td style="padding: 15px;">
-                    <p style="margin: 0 0 12px 0; font-size: 14px; color: #666666; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
-                      📅 Event-Details
-                    </p>
-                    <p style="margin: 0 0 8px 0; font-size: 15px; line-height: 1.6; color: #333333;">
-                      <strong>Datum:</strong> [Datum des Events hier einfügen]
-                    </p>
-                    <p style="margin: 0 0 8px 0; font-size: 15px; line-height: 1.6; color: #333333;">
-                      <strong>Uhrzeit:</strong> [Uhrzeit hier einfügen]
-                    </p>
-                    <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #333333;">
-                      <strong>Ort:</strong> [Adresse hier einfügen]
-                    </p>
-                  </td>
-                </tr>
-              </table>
-              <p style="margin: 0 0 20px 0; font-size: 16px; line-height: 1.6; color: #333333;">
-                <strong>Was mitbringen?</strong><br>
-                Bringe ein Gericht deiner Wahl mit, das für mehrere Personen reicht. Egal ob herzhaft oder süß, selbstgekocht oder gekauft – Hauptsache lecker! 😋
-              </p>
-              <p style="margin: 0 0 20px 0; font-size: 16px; line-height: 1.6; color: #333333;">
-                <strong>Wichtig:</strong><br>
-                Falls du Allergien oder spezielle Ernährungswünsche hast, haben wir diese in deiner Anmeldung vermerkt. Bitte denk auch daran, dein Gericht entsprechend zu kennzeichnen!
-              </p>
-              <p style="margin: 0 0 20px 0; font-size: 16px; line-height: 1.6; color: #333333;">
-                Bei Fragen oder falls du deine Teilnahme absagen musst, melde dich einfach per Email.
-              </p>
-              <p style="margin: 30px 0 0 0; font-size: 16px; line-height: 1.6; color: #333333;">
-                Wir freuen uns auf einen tollen Abend mit dir! 🎊
-              </p>
-              <p style="margin: 10px 0 0 0; font-size: 16px; line-height: 1.6; color: #333333;">
-                Viele Grüße,<br>
-                <strong>Dein POTLUCK Team</strong>
-              </p>
-            </td>
-          </tr>
-          <tr>
-            <td style="padding: 30px 40px; text-align: center; background-color: #f8f9fa; border-radius: 0 0 8px 8px;">
-              <p style="margin: 0; font-size: 13px; line-height: 1.5; color: #999999;">
-                Diese Email wurde automatisch versendet. Bitte nicht auf diese Email antworten.
-              </p>
-            </td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-  </table>
+<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #2B2D42; margin: 0; padding: 0; background-color: #FFFEF7;">
+  
+  <div style="width: 100%; background-color: #FFFEF7; padding: 40px 20px;">
+    <div style="max-width: 600px; margin: 0 auto; background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+      
+      <!-- Header -->
+      <div style="background: linear-gradient(135deg, #FFD166 0%, #EF476F 100%); padding: 40px; text-align: center;">
+        <span style="font-size: 48px; display: block; margin-bottom: 15px;">✅</span>
+        <h1 style="margin: 0; color: white; font-size: 32px; font-weight: 700;">Anmeldung erhalten!</h1>
+      </div>
+      
+      <!-- Content -->
+      <div style="padding: 40px;">
+        <h2 style="color: #EF476F; font-size: 22px; margin-top: 0; margin-bottom: 20px;">Hey {{name}}!</h2>
+        
+        <p style="font-size: 16px; margin-bottom: 20px; color: #2B2D42;">Danke für deine Anmeldung zum Potluck! 🍜</p>
+        
+        <p style="font-size: 16px; margin-bottom: 20px; color: #2B2D42;">Wir bearbeiten gerade deine Anfrage und melden uns in den <strong>nächsten Tagen</strong> mit allen Details bei dir.</p>
+        
+        <div style="background: linear-gradient(135deg, #FFF5E6 0%, #FFE6F0 100%); border-left: 5px solid #FFD166; padding: 20px; margin: 25px 0; border-radius: 8px; text-align: center;">
+          <p style="margin: 0; font-size: 16px; font-weight: 600; color: #2B2D42;">📧 Finale Infos + WhatsApp-Gruppen-Link folgen bald!</p>
+        </div>
+        
+        <p style="font-size: 16px; margin-bottom: 20px; color: #2B2D42;">Bis dahin: Freu dich auf gutes Essen, tolle Gespräche und neue Bekanntschaften! 🎉</p>
+        
+        <p style="font-size: 16px; margin-bottom: 20px; color: #2B2D42;">Liebe Grüße,<br>
+        <strong>Euer Host Brian</strong></p>
+      </div>
+      
+      <!-- Footer -->
+      <div style="background: #F5F5F5; padding: 25px 40px; text-align: center; font-size: 14px; color: #666; border-top: 1px solid #E0E0E0;">
+        <p style="margin: 5px 0; font-size: 14px;"><strong>Potluck Münster</strong></p>
+        <p style="margin: 5px 0; font-size: 14px;">vibezone.space</p>
+        <p style="margin: 5px 0; font-size: 14px;"><a href="mailto:operation@vibezone.space" style="color: #EF476F; text-decoration: none;">operation@vibezone.space</a></p>
+      </div>
+      
+    </div>
+  </div>
+  
 </body>
 </html>`,
 
   en: `<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your POTLUCK Registration</title>
+  <title>Registration received!</title>
 </head>
-<body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #f4f4f4;">
-  <table role="presentation" style="width: 100%; border-collapse: collapse;">
-    <tr>
-      <td align="center" style="padding: 40px 0;">
-        <table role="presentation" style="width: 600px; max-width: 100%; border-collapse: collapse; background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-          <tr>
-            <td style="padding: 40px 40px 30px 40px; text-align: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 8px 8px 0 0;">
-              <h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: 700;">🎉 Registration Confirmed!</h1>
-            </td>
-          </tr>
-          <tr>
-            <td style="padding: 40px;">
-              <p style="margin: 0 0 20px 0; font-size: 16px; line-height: 1.6; color: #333333;">
-                Hello <strong>{{{name}}}</strong>,
-              </p>
-              <p style="margin: 0 0 20px 0; font-size: 16px; line-height: 1.6; color: #333333;">
-                Thank you for registering for <strong>POTLUCK: Bring & Share</strong>! 🥘
-              </p>
-              <p style="margin: 0 0 20px 0; font-size: 16px; line-height: 1.6; color: #333333;">
-                We're so excited to have you join us! Here are the most important details:
-              </p>
-              <table role="presentation" style="width: 100%; border-collapse: collapse; margin: 30px 0; background-color: #f8f9fa; border-radius: 6px; padding: 20px;">
-                <tr>
-                  <td style="padding: 15px;">
-                    <p style="margin: 0 0 12px 0; font-size: 14px; color: #666666; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
-                      📅 Event Details
-                    </p>
-                    <p style="margin: 0 0 8px 0; font-size: 15px; line-height: 1.6; color: #333333;">
-                      <strong>Date:</strong> [Insert event date here]
-                    </p>
-                    <p style="margin: 0 0 8px 0; font-size: 15px; line-height: 1.6; color: #333333;">
-                      <strong>Time:</strong> [Insert time here]
-                    </p>
-                    <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #333333;">
-                      <strong>Location:</strong> [Insert address here]
-                    </p>
-                  </td>
-                </tr>
-              </table>
-              <p style="margin: 0 0 20px 0; font-size: 16px; line-height: 1.6; color: #333333;">
-                <strong>What to bring?</strong><br>
-                Bring a dish of your choice that serves multiple people. Whether savory or sweet, homemade or store-bought – as long as it's delicious! 😋
-              </p>
-              <p style="margin: 0 0 20px 0; font-size: 16px; line-height: 1.6; color: #333333;">
-                <strong>Important:</strong><br>
-                If you have any allergies or special dietary requirements, we've noted them in your registration. Please also remember to label your dish accordingly!
-              </p>
-              <p style="margin: 0 0 20px 0; font-size: 16px; line-height: 1.6; color: #333333;">
-                If you have any questions or need to cancel your participation, simply reach out via email.
-              </p>
-              <p style="margin: 30px 0 0 0; font-size: 16px; line-height: 1.6; color: #333333;">
-                We're looking forward to a wonderful evening with you! 🎊
-              </p>
-              <p style="margin: 10px 0 0 0; font-size: 16px; line-height: 1.6; color: #333333;">
-                Best regards,<br>
-                <strong>Your POTLUCK Team</strong>
-              </p>
-            </td>
-          </tr>
-          <tr>
-            <td style="padding: 30px 40px; text-align: center; background-color: #f8f9fa; border-radius: 0 0 8px 8px;">
-              <p style="margin: 0; font-size: 13px; line-height: 1.5; color: #999999;">
-                This email was sent automatically. Please do not reply to this email.
-              </p>
-            </td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-  </table>
+<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #2B2D42; margin: 0; padding: 0; background-color: #FFFEF7;">
+  
+  <div style="width: 100%; background-color: #FFFEF7; padding: 40px 20px;">
+    <div style="max-width: 600px; margin: 0 auto; background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+      
+      <!-- Header -->
+      <div style="background: linear-gradient(135deg, #FFD166 0%, #EF476F 100%); padding: 40px; text-align: center;">
+        <span style="font-size: 48px; display: block; margin-bottom: 15px;">✅</span>
+        <h1 style="margin: 0; color: white; font-size: 32px; font-weight: 700;">Registration received!</h1>
+      </div>
+      
+      <!-- Content -->
+      <div style="padding: 40px;">
+        <h2 style="color: #EF476F; font-size: 22px; margin-top: 0; margin-bottom: 20px;">Hey {{name}}!</h2>
+        
+        <p style="font-size: 16px; margin-bottom: 20px; color: #2B2D42;">Thanks for signing up for the potluck! 🍜</p>
+        
+        <p style="font-size: 16px; margin-bottom: 20px; color: #2B2D42;">We're processing your registration and will get back to you in the <strong>next few days</strong> with all the details.</p>
+        
+        <div style="background: linear-gradient(135deg, #FFF5E6 0%, #FFE6F0 100%); border-left: 5px solid #FFD166; padding: 20px; margin: 25px 0; border-radius: 8px; text-align: center;">
+          <p style="margin: 0; font-size: 16px; font-weight: 600; color: #2B2D42;">📧 Final info + WhatsApp group link coming soon!</p>
+        </div>
+        
+        <p style="font-size: 16px; margin-bottom: 20px; color: #2B2D42;">Until then: Get excited for great food, interesting conversations, and new connections! 🎉</p>
+        
+        <p style="font-size: 16px; margin-bottom: 20px; color: #2B2D42;">Best regards,<br>
+        <strong>Your Host Brian</strong></p>
+      </div>
+      
+      <!-- Footer -->
+      <div style="background: #F5F5F5; padding: 25px 40px; text-align: center; font-size: 14px; color: #666; border-top: 1px solid #E0E0E0;">
+        <p style="margin: 5px 0; font-size: 14px;"><strong>Potluck Münster</strong></p>
+        <p style="margin: 5px 0; font-size: 14px;">vibezone.space</p>
+        <p style="margin: 5px 0; font-size: 14px;"><a href="mailto:operation@vibezone.space" style="color: #EF476F; text-decoration: none;">operation@vibezone.space</a></p>
+      </div>
+      
+    </div>
+  </div>
+  
 </body>
 </html>`
 };
@@ -229,8 +167,27 @@ exports.handler = async function(event, context) {
         email: process.env.FROM_EMAIL,
         name: process.env.FROM_NAME
       },
+      replyTo: {
+        email: process.env.FROM_EMAIL,
+        name: process.env.FROM_NAME
+      },
       subject: subject,
-      html: htmlContent
+      html: htmlContent,
+      text: generatePlainTextVersion(language, name), // Plain text fallback
+      trackingSettings: {
+        clickTracking: {
+          enable: false
+        },
+        openTracking: {
+          enable: false
+        }
+      },
+      mailSettings: {
+        bypassListManagement: {
+          enable: false
+        }
+      },
+      categories: ['potluck-confirmation']
     };
 
     await sgMail.send(msg);
