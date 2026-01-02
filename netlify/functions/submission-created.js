@@ -14,16 +14,16 @@ const TEMPLATES = {
 </head>
 <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #2B2D42; margin: 0; padding: 0; background-color: #FFFEF7; overflow-x: hidden;">
   
-  <div style="width: 100%; background-color: #FFFEF7; padding: 40px 20px;">
+  <div style="width: 100%; background-color: #FFFEF7; padding: 20px 10px;">
     <div style="max-width: 600px; margin: 0 auto; background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
       
       <!-- Header -->
-      <div style="background: #EF476F; padding: 40px; text-align: center;">
+      <div style="background: #EF476F; padding: 30px 20px; text-align: center;">
         <h1 style="margin: 0; color: white; font-size: 32px; font-weight: 700;">Anmeldung erhalten!</h1>
       </div>
       
       <!-- Content -->
-      <div style="padding: 40px;">
+      <div style="padding: 30px 20px;">
         <h2 style="color: #EF476F; font-size: 22px; margin-top: 0; margin-bottom: 20px;">Hey {{name}}!</h2>
         
         <p style="font-size: 16px; margin-bottom: 20px; color: #2B2D42;">Danke für deine Anmeldung zum Potluck! 🍜</p>
@@ -41,7 +41,7 @@ const TEMPLATES = {
       </div>
       
       <!-- Footer -->
-      <div style="background: #F5F5F5; padding: 25px 40px; text-align: center; font-size: 14px; color: #666; border-top: 1px solid #E0E0E0;">
+      <div style="background: #F5F5F5; padding: 20px; text-align: center; font-size: 14px; color: #666; border-top: 1px solid #E0E0E0;">
         <p style="margin: 5px 0; font-size: 14px;"><strong>VibeZone Event</strong></p>
         <p style="margin: 5px 0; font-size: 14px;">vibezone.space</p>
         <p style="margin: 5px 0; font-size: 14px;"><a href="mailto:operation@vibezone.space" style="color: #EF476F; text-decoration: none;">operation@vibezone.space</a></p>
@@ -62,16 +62,16 @@ const TEMPLATES = {
 </head>
 <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #2B2D42; margin: 0; padding: 0; background-color: #FFFEF7; overflow-x: hidden;">
   
-  <div style="width: 100%; background-color: #FFFEF7; padding: 40px 20px;">
+  <div style="width: 100%; background-color: #FFFEF7; padding: 20px 10px;">
     <div style="max-width: 600px; margin: 0 auto; background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
       
       <!-- Header -->
-      <div style="background: #EF476F; padding: 40px; text-align: center;">
+      <div style="background: #EF476F; padding: 30px 20px; text-align: center;">
         <h1 style="margin: 0; color: white; font-size: 32px; font-weight: 700;">Registration received!</h1>
       </div>
       
       <!-- Content -->
-      <div style="padding: 40px;">
+      <div style="padding: 30px 20px;">
         <h2 style="color: #EF476F; font-size: 22px; margin-top: 0; margin-bottom: 20px;">Hey {{name}}!</h2>
         
         <p style="font-size: 16px; margin-bottom: 20px; color: #2B2D42;">Thanks for signing up for the potluck! 🍜</p>
@@ -89,7 +89,7 @@ const TEMPLATES = {
       </div>
       
       <!-- Footer -->
-      <div style="background: #F5F5F5; padding: 25px 40px; text-align: center; font-size: 14px; color: #666; border-top: 1px solid #E0E0E0;">
+      <div style="background: #F5F5F5; padding: 20px; text-align: center; font-size: 14px; color: #666; border-top: 1px solid #E0E0E0;">
         <p style="margin: 5px 0; font-size: 14px;"><strong>VibeZone Event</strong></p>
         <p style="margin: 5px 0; font-size: 14px;">vibezone.space</p>
         <p style="margin: 5px 0; font-size: 14px;"><a href="mailto:operation@vibezone.space" style="color: #EF476F; text-decoration: none;">operation@vibezone.space</a></p>
