@@ -18,8 +18,7 @@ const TEMPLATES = {
     <div style="max-width: 600px; margin: 0 auto; background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
       
       <!-- Header -->
-      <div style="background: linear-gradient(135deg, #FFD166 0%, #EF476F 100%); padding: 40px; text-align: center;">
-        <span style="font-size: 48px; display: block; margin-bottom: 15px;">✅</span>
+      <div style="background: #EF476F; padding: 40px; text-align: center;">
         <h1 style="margin: 0; color: white; font-size: 32px; font-weight: 700;">Anmeldung erhalten!</h1>
       </div>
       
@@ -43,7 +42,7 @@ const TEMPLATES = {
       
       <!-- Footer -->
       <div style="background: #F5F5F5; padding: 25px 40px; text-align: center; font-size: 14px; color: #666; border-top: 1px solid #E0E0E0;">
-        <p style="margin: 5px 0; font-size: 14px;"><strong>Potluck Münster</strong></p>
+        <p style="margin: 5px 0; font-size: 14px;"><strong>VibeZone Event</strong></p>
         <p style="margin: 5px 0; font-size: 14px;">vibezone.space</p>
         <p style="margin: 5px 0; font-size: 14px;"><a href="mailto:operation@vibezone.space" style="color: #EF476F; text-decoration: none;">operation@vibezone.space</a></p>
       </div>
@@ -67,8 +66,7 @@ const TEMPLATES = {
     <div style="max-width: 600px; margin: 0 auto; background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
       
       <!-- Header -->
-      <div style="background: linear-gradient(135deg, #FFD166 0%, #EF476F 100%); padding: 40px; text-align: center;">
-        <span style="font-size: 48px; display: block; margin-bottom: 15px;">✅</span>
+      <div style="background: #EF476F; padding: 40px; text-align: center;">
         <h1 style="margin: 0; color: white; font-size: 32px; font-weight: 700;">Registration received!</h1>
       </div>
       
@@ -92,7 +90,7 @@ const TEMPLATES = {
       
       <!-- Footer -->
       <div style="background: #F5F5F5; padding: 25px 40px; text-align: center; font-size: 14px; color: #666; border-top: 1px solid #E0E0E0;">
-        <p style="margin: 5px 0; font-size: 14px;"><strong>Potluck Münster</strong></p>
+        <p style="margin: 5px 0; font-size: 14px;"><strong>VibeZone Event</strong></p>
         <p style="margin: 5px 0; font-size: 14px;">vibezone.space</p>
         <p style="margin: 5px 0; font-size: 14px;"><a href="mailto:operation@vibezone.space" style="color: #EF476F; text-decoration: none;">operation@vibezone.space</a></p>
       </div>
@@ -110,9 +108,9 @@ const TEMPLATES = {
 function getEmailTemplate(language, variables) {
   let template = TEMPLATES[language];
 
-  // Replace variables: {{{name}}} -> actual name
+  // Replace variables: {{name}} -> actual name
   Object.keys(variables).forEach(key => {
-    const placeholder = `{{{${key}}}}`;
+    const placeholder = `{{${key}}}`;
     template = template.replace(new RegExp(placeholder, 'g'), variables[key]);
   });
 
@@ -140,7 +138,7 @@ Liebe Grüße,
 Euer Host Brian
 
 ---
-Potluck Münster
+VibeZone Event
 vibezone.space
 operation@vibezone.space`;
   } else {
@@ -160,7 +158,7 @@ Best regards,
 Your Host Brian
 
 ---
-Potluck Münster
+VibeZone Event
 vibezone.space
 operation@vibezone.space`;
   }
