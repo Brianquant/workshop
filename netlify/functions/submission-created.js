@@ -12,7 +12,7 @@ const TEMPLATES = {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Anmeldung erhalten!</title>
 </head>
-<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #2B2D42; margin: 0; padding: 0; background-color: #FFFEF7;">
+<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #2B2D42; margin: 0; padding: 0; background-color: #FFFEF7; overflow-x: hidden;">
   
   <div style="width: 100%; background-color: #FFFEF7; padding: 40px 20px;">
     <div style="max-width: 600px; margin: 0 auto; background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
@@ -60,7 +60,7 @@ const TEMPLATES = {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Registration received!</title>
 </head>
-<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #2B2D42; margin: 0; padding: 0; background-color: #FFFEF7;">
+<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #2B2D42; margin: 0; padding: 0; background-color: #FFFEF7; overflow-x: hidden;">
   
   <div style="width: 100%; background-color: #FFFEF7; padding: 40px 20px;">
     <div style="max-width: 600px; margin: 0 auto; background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
