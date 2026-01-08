@@ -38,13 +38,20 @@ const TEMPLATES = {
         
         <p style="font-size: 16px; margin-bottom: 20px; color: #2B2D42;">Liebe Grüße,<br>
         <strong>Euer Host Brian</strong></p>
+
+        <!-- Spam Hint -->
+        <div style="background: #FFF9E6; border: 1px solid #FFD166; padding: 15px; margin: 20px 0 0 0; border-radius: 8px;">
+          <p style="margin: 0; font-size: 14px; color: #666; line-height: 1.5;">
+            💡 <strong>Diese Mail im Spam gelandet?</strong> Kein Problem! Markiere sie einfach als "Kein Spam", damit du zukünftige Updates direkt in deinem Posteingang findest.
+          </p>
+        </div>
       </div>
-      
+
       <!-- Footer -->
       <div style="background: #F5F5F5; padding: 20px; text-align: center; font-size: 14px; color: #666; border-top: 1px solid #E0E0E0;">
         <p style="margin: 5px 0; font-size: 14px;"><strong>VibeZone Event</strong></p>
         <p style="margin: 5px 0; font-size: 14px;">vibezone.space</p>
-        <p style="margin: 5px 0; font-size: 14px;"><a href="mailto:operation@vibezone.space" style="color: #EF476F; text-decoration: none;">operation@vibezone.space</a></p>
+        <p style="margin: 5px 0; font-size: 14px;"><a href="mailto:potluck@vibezone.space" style="color: #EF476F; text-decoration: none;">potluck@vibezone.space</a></p>
       </div>
       
     </div>
@@ -86,13 +93,20 @@ const TEMPLATES = {
         
         <p style="font-size: 16px; margin-bottom: 20px; color: #2B2D42;">Best regards,<br>
         <strong>Your Host Brian</strong></p>
+
+        <!-- Spam Hint -->
+        <div style="background: #FFF9E6; border: 1px solid #FFD166; padding: 15px; margin: 20px 0 0 0; border-radius: 8px;">
+          <p style="margin: 0; font-size: 14px; color: #666; line-height: 1.5;">
+            💡 <strong>Found this email in spam?</strong> No worries! Just mark it as "Not Spam" so you won't miss future updates in your inbox.
+          </p>
+        </div>
       </div>
-      
+
       <!-- Footer -->
       <div style="background: #F5F5F5; padding: 20px; text-align: center; font-size: 14px; color: #666; border-top: 1px solid #E0E0E0;">
         <p style="margin: 5px 0; font-size: 14px;"><strong>VibeZone Event</strong></p>
         <p style="margin: 5px 0; font-size: 14px;">vibezone.space</p>
-        <p style="margin: 5px 0; font-size: 14px;"><a href="mailto:operation@vibezone.space" style="color: #EF476F; text-decoration: none;">operation@vibezone.space</a></p>
+        <p style="margin: 5px 0; font-size: 14px;"><a href="mailto:potluck@vibezone.space" style="color: #EF476F; text-decoration: none;">potluck@vibezone.space</a></p>
       </div>
       
     </div>
@@ -140,7 +154,7 @@ Euer Host Brian
 ---
 VibeZone Event
 vibezone.space
-operation@vibezone.space`;
+potluck@vibezone.space`;
   } else {
     return `Registration received!
 
@@ -160,7 +174,7 @@ Your Host Brian
 ---
 VibeZone Event
 vibezone.space
-operation@vibezone.space`;
+potluck@vibezone.space`;
   }
 }
 
